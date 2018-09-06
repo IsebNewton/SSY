@@ -5,6 +5,7 @@
 Core::Core()
 {
 	window = new Window();
+	
 }
 
 void Core::startGame()
@@ -17,22 +18,35 @@ void Core::startGame()
 	{
 		std::cerr << "ERROR: " << SDL_GetError() << std::endl;
 	}
-	
-	SDL_Event event;
-	bool quit = false;
-	while (!quit)
+
+	/*Test der Klasse Surface*/
+	try
 	{
-		while (SDL_PollEvent(&event))
+		Surface *testbild = new Surface(window);
+		testbild->laden("Testscreen.bmp");
+	}
+	catch (SurfaceError &obj)
+	{
+		std::cerr << obj.what() << std::endl;
+	}
+	/*Ende des Tests*/
+
+		SDL_Event event;
+		bool quit = false;
+		while (!quit)
 		{
-			if (event.type == SDL_QUIT)
+			while (SDL_PollEvent(&event))
 			{
-				quit = true;
+				if (event.type == SDL_QUIT)
+				{
+					quit = true;
+				}
 			}
 		}
-	}
-
-	delete window;
-	SDL_Quit();
+		
+		delete window;
+		SDL_Quit();
+	
 }
 
 

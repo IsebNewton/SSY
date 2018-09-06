@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL.h>
+#include "GenericError.h"
 
 class Window
 {
@@ -10,6 +11,7 @@ public:
 	Window();
 	bool createWindow();
 	void onRender();
+	SDL_Window* getWindow();
 	~Window();
 };
 
