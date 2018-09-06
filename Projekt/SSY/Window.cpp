@@ -15,6 +15,7 @@ bool Window::createWindow()
 	// Öffnet das Fenster in der Mitte des Bildschirmes
 	window = SDL_CreateWindow("Age of Kacke", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		400, 400, SDL_WINDOW_SHOWN);
+	
 	if (window == nullptr)
 	{
 		ret = false;
