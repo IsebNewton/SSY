@@ -36,7 +36,7 @@ SDL_Surface * GraphicFactory::loadPicture(const char * path)
 SDL_Texture * GraphicFactory::loadTexture(SDL_Renderer * renderer, const char * path)
 {
 	if (renderer == nullptr)
-		throw GraphicHelperError("Renderer darf nicht null sein");
+		throw GraphicFactoryError("Renderer darf nicht null sein");
 
 	initIMG();
 
@@ -46,7 +46,23 @@ SDL_Texture * GraphicFactory::loadTexture(SDL_Renderer * renderer, const char * 
 	texture = SDL_CreateTextureFromSurface(renderer, picture);
 	SDL_FreeSurface(picture);	// Speicher wieder frei geben
 	if (texture == nullptr)
-		throw GraphicHelperError();
+		throw GraphicFactoryError();
+
+	return texture;
+}
+
+SDL_Texture * GraphicFactory::loadTextureFromSurface(SDL_Renderer * renderer, SDL_Surface * surface)
+{
+	if(renderer == nullptr)
+		throw GraphicFactoryError("Renderer darf nicht null sein");
+	if (surface == nullptr)
+		throw GraphicFactoryError("Surface darf nicht null sein");
+
+	initIMG();
+
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+	if (texture == NULL)
+		throw GraphicFactoryError();
 
 	return texture;
 }

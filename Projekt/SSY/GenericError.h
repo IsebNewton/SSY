@@ -61,10 +61,10 @@ public:
 	WindowError(std::string msg = "Window Error") : GenericError(msg) { }
 };
 
-//GraphicHelper
-class GraphicHelperError : public GenericError
+//GraphicFactory
+class GraphicFactoryError : public GenericError
 {
 public:
-	GraphicHelperError(std::string msg = "GraphicHelper Error") : GenericError(msg) { }
+	GraphicFactoryError(std::string msg = "GraphicHelper Error") : GenericError(msg) { }
 };
 

@@ -4,6 +4,7 @@
 
 Window::Window()
 {
+	background = GraphicFactory::loadPicture("Testscreen.bmp");
 }
 
 /*
@@ -20,13 +21,16 @@ bool Window::createWindow()
 	{
 		ret = false;
 	}
+	renderer = new Renderer(window);
 
 	return ret;
 }
 
 void Window::onRender()
 {
-	// TODO: Alle Controls im Window rendern
+	renderer->drawBackground(background);
+	
+	renderer->presentRenderer();
 }
 
 SDL_Window* Window::getWindow()
@@ -36,5 +40,6 @@ SDL_Window* Window::getWindow()
 
 Window::~Window()
 {
+	SDL_FreeSurface(background);
 	SDL_DestroyWindow(window);
 }

@@ -5,7 +5,6 @@
 Core::Core()
 {
 	window = new Window();
-	
 }
 
 /*
@@ -22,19 +21,6 @@ void Core::startGame()
 		throw  WindowError();
 	}
 
-	/*Test der Klasse GraphicHelper*/
-	try
-	{
-		SDL_Surface* picture = GraphicFactory::loadPicture("Testscreen.bmp");
-		SDL_BlitSurface(picture, NULL, SDL_GetWindowSurface(window->getWindow()), NULL);
-		SDL_UpdateWindowSurface(window->getWindow());
-	}
-	catch (const GenericError error)
-	{
-		throw error;
-	}
-	/*Ende des Tests*/
-
 	SDL_Event event;
 	bool quit = false;
 	while (!quit)
@@ -48,6 +34,8 @@ void Core::startGame()
 				quit = true;
 			}
 		}
+
+		window->onRender();
 
 		// Delay setzen damit die FPS runtergesetzt werden.
 		if (SDL_GetTicks() - frameTime < 30) {
