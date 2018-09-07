@@ -45,6 +45,7 @@ SDL_Window* Window::getWindow()
 
 Window::~Window()
 {
+	delete renderer;
 	SDL_DestroyTexture(background);
 	SDL_DestroyWindow(window);
 }
