@@ -2,6 +2,8 @@
 #include <SDL.h>
 #include <iostream>
 
+bool Core::quit = false;
+
 Core::Core()
 {
 	window = new Window();
@@ -21,25 +23,18 @@ void Core::startGame()
 		throw  WindowError();
 	}
 
-	SDL_Event event;
-	bool quit = false;
+	eventHandler = EventHandler();
 	while (!quit)
 	{
 		long frameTime = SDL_GetTicks();
 
-		while (SDL_PollEvent(&event))
-		{
-			if (event.type == SDL_QUIT)
-			{
-				quit = true;
-			}
-		}
+		eventHandler.onHandleEvents();
 
 		window->onRender();
 
 		// Delay setzen damit die FPS runtergesetzt werden.
-		if (SDL_GetTicks() - frameTime < 30) {
-			SDL_Delay(30 - (SDL_GetTicks() - frameTime));
+		if (SDL_GetTicks() - frameTime < 16) {
+			SDL_Delay(16 - (SDL_GetTicks() - frameTime));
 		}
 	}
 		

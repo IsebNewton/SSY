@@ -160,16 +160,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp" />
+    <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="GenericError.cpp" />
+    <ClCompile Include="InputWrapper.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="GraphicFactory.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\WorkingTitle\PJM\PJM\Fonts.h" />
     <ClInclude Include="Core.h" />
+    <ClInclude Include="EventHandler.h" />
     <ClInclude Include="GenericError.h" />
     <ClInclude Include="GraphicFactory.h" />
+    <ClInclude Include="InputWrapper.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
