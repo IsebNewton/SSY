@@ -24,10 +24,10 @@
     <ClCompile Include="Main.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="Surface.cpp">
+    <ClCompile Include="GenericError.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="GenericError.cpp">
+    <ClCompile Include="GraphicFactory.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,10 +38,10 @@
     <ClInclude Include="Window.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Surface.h">
+    <ClInclude Include="GenericError.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="GenericError.h">
+    <ClInclude Include="GraphicFactory.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

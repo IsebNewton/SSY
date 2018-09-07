@@ -6,6 +6,7 @@ Basisklasse aller Fehlerklassen ist die Klasse GenericError
 
 #pragma once
 #include <SDL.h>
+#include <SDL_image.h>
 #include <string>
 
 //BASISKLASSE
@@ -32,6 +33,20 @@ public:
 	SDLInitError(std::string msg = "SDL_Init Error") : GenericError(msg) { }
 };
 
+//SDL_INIT
+class SDLImageError : public GenericError
+{
+public:
+	SDLImageError(std::string msg = "SDL_Image Error") : GenericError(msg) { }
+
+	std::string what(void) const override
+	{
+		std::string msg = "ERROR: " + message + "\n";
+		msg += IMG_GetError();	// Immer den Grund warum was fehlgeschlagen ist bekommen
+		return msg + "\n";	// part man sich immer das endl am ende :)
+	}
+};
+
 //Core
 class CoreError : public GenericError
 {
@@ -46,10 +61,10 @@ public:
 	WindowError(std::string msg = "Window Error") : GenericError(msg) { }
 };
 
-//Surface
-class SurfaceError : public GenericError
+//GraphicHelper
+class GraphicHelperError : public GenericError
 {
 public:
-	SurfaceError(std::string msg = "Surface Error") : GenericError(msg) { }
+	GraphicHelperError(std::string msg = "GraphicHelper Error") : GenericError(msg) { }
 };
 

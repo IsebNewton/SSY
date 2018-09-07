@@ -1,6 +1,6 @@
 #pragma once
 #include "Window.h"
-#include "Surface.h"
+#include "GraphicFactory.h"
 
 class Core
 {

@@ -15,16 +15,24 @@ void Core::startGame()
 {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
-		throw new SDLInitError();
+		throw SDLInitError();
 	}
 	if (!window->createWindow())
 	{
-		throw new WindowError();
+		throw  WindowError();
 	}
 
-	/*Test der Klasse Surface*/
-	Surface *testbild = new Surface(window);
-	testbild->laden("Testscreen.bmp");
+	/*Test der Klasse GraphicHelper*/
+	try
+	{
+		SDL_Surface* picture = GraphicFactory::loadPicture("Testscreen.bmp");
+		SDL_BlitSurface(picture, NULL, SDL_GetWindowSurface(window->getWindow()), NULL);
+		SDL_UpdateWindowSurface(window->getWindow());
+	}
+	catch (const GenericError error)
+	{
+		throw error;
+	}
 	/*Ende des Tests*/
 
 	SDL_Event event;
@@ -41,6 +49,7 @@ void Core::startGame()
 	}
 		
 	delete window;
+	GraphicFactory::quit();
 	SDL_Quit();
 }
 
