@@ -169,7 +169,6 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\WorkingTitle\PJM\PJM\Fonts.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="EventHandler.h" />
     <ClInclude Include="GenericError.h" />

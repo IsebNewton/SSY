@@ -59,9 +59,6 @@
     <ClInclude Include="EventHandler.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\WorkingTitle\PJM\PJM\Fonts.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="InputWrapper.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
