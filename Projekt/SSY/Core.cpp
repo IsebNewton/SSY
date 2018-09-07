@@ -39,12 +39,19 @@ void Core::startGame()
 	bool quit = false;
 	while (!quit)
 	{
+		long frameTime = SDL_GetTicks();
+
 		while (SDL_PollEvent(&event))
 		{
 			if (event.type == SDL_QUIT)
 			{
 				quit = true;
 			}
+		}
+
+		// Delay setzen damit die FPS runtergesetzt werden.
+		if (SDL_GetTicks() - frameTime < 30) {
+			SDL_Delay(30 - (SDL_GetTicks() - frameTime));
 		}
 	}
 		
