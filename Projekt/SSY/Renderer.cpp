@@ -102,6 +102,16 @@ void Renderer::drawPicture(const SDL_Rect * dstRect, const SDL_Rect * srcRect, S
 	SDL_DestroyTexture(texture);
 }
 
+void Renderer::drawTexture(const SDL_Rect * rect, SDL_Texture * texture)
+{
+	SDL_RenderCopy(renderer, texture, NULL, rect);
+}
+
+void Renderer::drawTexture(const SDL_Rect * dstRect, const SDL_Rect * srcRect, SDL_Texture * texture)
+{
+	SDL_RenderCopy(renderer, texture, srcRect, dstRect);
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////
 //									Background											//
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -110,6 +120,11 @@ void Renderer::drawBackground(SDL_Color color)
 {
 	SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
 	SDL_RenderClear(renderer);
+}
+
+void Renderer::drawBackground(SDL_Texture * texture)
+{
+	this->drawTexture(NULL, texture);
 }
 
 void Renderer::drawBackground(SDL_Surface* surface)
@@ -135,6 +150,16 @@ void Renderer::drawBackground(const SDL_Rect * dstRect, const SDL_Rect * srcRect
 //////////////////////////////////////////////////////////////////////////////////////////
 //							Zusätzliche Renderfunktionen								//
 //////////////////////////////////////////////////////////////////////////////////////////
+
+SDL_Texture * Renderer::getTexture(SDL_Surface * surface)
+{
+	return GraphicFactory::loadTextureFromSurface(renderer, surface);
+}
+
+SDL_Texture * Renderer::getTexture(const char * path)
+{
+	return GraphicFactory::loadTexture(renderer, path);
+}
 
 void Renderer::presentRenderer()
 {

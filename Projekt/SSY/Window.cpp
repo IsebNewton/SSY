@@ -4,7 +4,7 @@
 
 Window::Window()
 {
-	background = GraphicFactory::loadPicture("Testscreen.bmp");
+
 }
 
 /*
@@ -23,6 +23,11 @@ bool Window::createWindow()
 	}
 	renderer = new Renderer(window);
 
+	if (background == NULL)
+	{
+		background = renderer->getTexture("Testscreen.bmp");
+	}
+
 	return ret;
 }
 
@@ -40,6 +45,6 @@ SDL_Window* Window::getWindow()
 
 Window::~Window()
 {
-	SDL_FreeSurface(background);
+	SDL_DestroyTexture(background);
 	SDL_DestroyWindow(window);
 }

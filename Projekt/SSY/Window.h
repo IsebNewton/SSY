@@ -8,7 +8,7 @@ class Window
 private:
 	SDL_Window * window = nullptr;
 	Renderer * renderer = nullptr;
-	SDL_Surface* background = nullptr;
+	SDL_Texture* background = nullptr;
 
 public:
 	Window();

@@ -30,14 +30,21 @@ public:
 	virtual void drawPicture(const SDL_Rect* rect, SDL_Surface* surface);
 	virtual void drawPicture(const SDL_Rect* dstRect, const SDL_Rect* srcRect, SDL_Surface* surface);
 
+	// Funktionen zum Zeichnen von Texturen
+	virtual void drawTexture(const SDL_Rect* rect, SDL_Texture* texture);
+	virtual void drawTexture(const SDL_Rect* dstRect, const SDL_Rect* srcRect, SDL_Texture* texture);
+
 	// Funktionen zum Zeichnen des Hintergrundes
 	virtual void drawBackground(SDL_Color color);
+	virtual void drawBackground(SDL_Texture* texture);
 	virtual void drawBackground(SDL_Surface* surface);
 	virtual void drawBackground(const SDL_Rect* rect, SDL_Color color);
 	virtual void drawBackground(const SDL_Rect* rect, SDL_Surface* surface);
 	virtual void drawBackground(const SDL_Rect* dstRect, const SDL_Rect* srcRect, SDL_Surface* surface);
 
 	// Nötige Renderfunktionen
+	SDL_Texture* getTexture(SDL_Surface* surface);
+	SDL_Texture* getTexture(const char * path);
 	void presentRenderer();
 private:
 	SDL_Renderer * renderer;
