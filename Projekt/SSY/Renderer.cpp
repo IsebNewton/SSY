@@ -65,7 +65,36 @@ void Renderer::drawRectangle(const SDL_Rect * rect, SDL_Color color)
 
 void Renderer::drawRectangle(const SDL_Rect * rect, int borderSize, SDL_Color color)
 {
-	// TODO:
+	if (borderSize > 0)
+	{
+		SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+		SDL_Rect borderRect;
+
+		// Linken Rand zeichnen
+		borderRect.x = rect->x;
+		borderRect.y = rect->y;
+		borderRect.w = borderSize;
+		borderRect.h = rect->h;
+		this->fillRectangle(&borderRect, color);
+
+		// Oberen Rand zeichnen
+		borderRect.w = rect->w;
+		borderRect.h = borderSize;
+		this->fillRectangle(&borderRect, color);
+
+		// Rechten Rand zeichnen
+		borderRect.x = rect->x + rect->w - borderSize;
+		borderRect.h = rect->h;
+		borderRect.w = borderSize;
+		this->fillRectangle(&borderRect, color);
+
+		// Unteren Rand zeichnen
+		borderRect.x = rect->x;
+		borderRect.y = rect->y + rect->h - borderSize;
+		borderRect.w = rect->w;
+		borderRect.h = borderSize;
+		this->fillRectangle(&borderRect, color);
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
