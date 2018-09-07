@@ -8,45 +8,40 @@ Core::Core()
 	
 }
 
+/*
+Startet den Gameloop und kümmert sich so um das Spiel
+*/
 void Core::startGame()
 {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
-		std::cerr << "ERROR: " << SDL_GetError() << std::endl;
+		throw new SDLInitError();
 	}
 	if (!window->createWindow())
 	{
-		std::cerr << "ERROR: " << SDL_GetError() << std::endl;
+		throw new WindowError();
 	}
 
 	/*Test der Klasse Surface*/
-	try
-	{
-		Surface *testbild = new Surface(window);
-		testbild->laden("Testscreen.bmp");
-	}
-	catch (SurfaceError &obj)
-	{
-		std::cerr << obj.what() << std::endl;
-	}
+	Surface *testbild = new Surface(window);
+	testbild->laden("Testscreen.bmp");
 	/*Ende des Tests*/
 
-		SDL_Event event;
-		bool quit = false;
-		while (!quit)
+	SDL_Event event;
+	bool quit = false;
+	while (!quit)
+	{
+		while (SDL_PollEvent(&event))
 		{
-			while (SDL_PollEvent(&event))
+			if (event.type == SDL_QUIT)
 			{
-				if (event.type == SDL_QUIT)
-				{
-					quit = true;
-				}
+				quit = true;
 			}
 		}
+	}
 		
-		delete window;
-		SDL_Quit();
-	
+	delete window;
+	SDL_Quit();
 }
 
 
