@@ -39,6 +39,12 @@
     <ClCompile Include="InputWrapper.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="FontFactory.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -60,6 +66,12 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="InputWrapper.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="FontFactory.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

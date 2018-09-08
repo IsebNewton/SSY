@@ -27,24 +27,23 @@ Renderer::~Renderer()
 //									Text												//
 //////////////////////////////////////////////////////////////////////////////////////////
 
-void Renderer::drawText(const std::string text, const SDL_Rect * rect)
+void Renderer::drawText(const char* text, const SDL_Rect * rect, Font * font)
 {
-	// TODO:
+	this->drawText(text, rect, font, SDL_Color{ 0, 0, 0 });
 }
 
-void Renderer::drawText(const std::string text, const SDL_Rect * rect, SDL_Color color)
+void Renderer::drawText(const char* text, const SDL_Rect * rect, Font * font, SDL_Color color)
 {
-	// TODO:
-}
+	if (font == NULL || font->getFont() == NULL)
+		throw GenericError("RENDERER: Schrift darf nicht NULL sein");
 
-void Renderer::drawText(const std::string text, const SDL_Rect * rect, const TTF_Font * font)
-{
-	// TODO:
-}
+	SDL_Surface * surface = TTF_RenderText_Solid(font->getFont(), text, color);
+	SDL_Texture * texture = GraphicFactory::loadTextureFromSurface(renderer, surface);
 
-void Renderer::drawText(const std::string text, const SDL_Rect * rect, const TTF_Font * font, SDL_Color color)
-{
-	// TODO:
+	SDL_RenderCopy(renderer, texture, NULL, rect);
+
+	SDL_FreeSurface(surface);
+	SDL_DestroyTexture(texture);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -53,8 +52,7 @@ void Renderer::drawText(const std::string text, const SDL_Rect * rect, const TTF
 
 void Renderer::drawRectangle(const SDL_Rect * rect)
 {
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-	SDL_RenderDrawRect(renderer, rect);
+	this->drawRectangle(rect, SDL_Color{ 0, 0, 0 });
 }
 
 void Renderer::drawRectangle(const SDL_Rect * rect, SDL_Color color)
@@ -103,8 +101,7 @@ void Renderer::drawRectangle(const SDL_Rect * rect, int borderSize, SDL_Color co
 
 void Renderer::fillRectangle(const SDL_Rect * rect)
 {
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-	SDL_RenderFillRect(renderer, rect);
+	this->fillRectangle(rect, SDL_Color{0, 0, 0});
 }
 
 void Renderer::fillRectangle(const SDL_Rect * rect, SDL_Color color)

@@ -1,8 +1,8 @@
 #pragma once
 #include <SDL.h>
-#include <SDL_ttf.h>
 #include <string>
 #include "GraphicFactory.h"
+#include "Font.h"
 
 class Renderer
 {
@@ -12,10 +12,8 @@ public:
 	~Renderer();
 
 	// Funktionen zum zeichnen von Texten
-	virtual void drawText(const std::string text, const SDL_Rect* rect);
-	virtual void drawText(const std::string text, const SDL_Rect* rect, SDL_Color color);
-	virtual void drawText(const std::string text, const SDL_Rect* rect, const TTF_Font* font);
-	virtual void drawText(const std::string text, const SDL_Rect* rect, const TTF_Font* font, SDL_Color color);
+	virtual void drawText(const char* text, const SDL_Rect* rect, Font* font);
+	virtual void drawText(const char* text, const SDL_Rect* rect, Font* font, SDL_Color color);
 
 	// Funktionen zum zecihnen von Rechtecken
 	virtual void drawRectangle(const SDL_Rect* rect);

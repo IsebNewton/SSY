@@ -20,8 +20,6 @@ void GraphicFactory::initIMG()
 //Lädt ein Bild
 SDL_Surface * GraphicFactory::loadPicture(const char * path)
 {
-	initIMG();
-
 	std::string completePath = "../Bilder/" + std::string(path);
 	SDL_Surface* picture = nullptr;
 
@@ -37,8 +35,6 @@ SDL_Texture * GraphicFactory::loadTexture(SDL_Renderer * renderer, const char * 
 {
 	if (renderer == nullptr)
 		throw GraphicFactoryError("Renderer darf nicht null sein");
-
-	initIMG();
 
 	SDL_Texture* texture = nullptr;
 	SDL_Surface* picture = loadPicture(path);
@@ -57,8 +53,6 @@ SDL_Texture * GraphicFactory::loadTextureFromSurface(SDL_Renderer * renderer, SD
 		throw GraphicFactoryError("Renderer darf nicht null sein");
 	if (surface == nullptr)
 		throw GraphicFactoryError("Surface darf nicht null sein");
-
-	initIMG();
 
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
 	if (texture == NULL)

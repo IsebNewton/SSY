@@ -23,6 +23,9 @@ void Core::startGame()
 		throw  WindowError();
 	}
 
+	FontFactory::initTTF();
+	GraphicFactory::initIMG();
+
 	eventHandler = EventHandler();
 	while (!quit)
 	{
@@ -39,6 +42,7 @@ void Core::startGame()
 	}
 		
 	delete window;
+	FontFactory::quit();
 	GraphicFactory::quit();
 	SDL_Quit();
 }
