@@ -16,11 +16,11 @@ void Core::startGame()
 {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
-		throw SDLInitError();
+		throw SDLError();
 	}
 	if (!window->createWindow())
 	{
-		throw  WindowError();
+		throw SDLError();
 	}
 
 	FontFactory::initTTF();

@@ -35,7 +35,7 @@ void Renderer::drawText(const char* text, const SDL_Rect * rect, Font * font)
 void Renderer::drawText(const char* text, const SDL_Rect * rect, Font * font, SDL_Color color)
 {
 	if (font == NULL || font->getFont() == NULL)
-		throw GenericError("RENDERER: Schrift darf nicht NULL sein");
+		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Schrift zum Rendern darf nicht NULL sein.");
 
 	SDL_Surface * surface = TTF_RenderText_Solid(font->getFont(), text, color);
 	SDL_Texture * texture = GraphicFactory::loadTextureFromSurface(renderer, surface);

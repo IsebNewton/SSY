@@ -9,7 +9,7 @@ void FontFactory::initTTF()
 	{
 		if (TTF_Init() != 0)
 		{
-			throw GenericError("SDL_TTF: TTF konnte nicht initialisiert werden");
+			throw TTFError();
 		}
 		isTTFInit = true;
 	}
