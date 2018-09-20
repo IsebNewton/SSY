@@ -167,6 +167,7 @@
     <ClCompile Include="InputWrapper.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="GraphicFactory.cpp" />
+    <ClCompile Include="ObjectControl.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -178,6 +179,7 @@
     <ClInclude Include="GenericError.h" />
     <ClInclude Include="GraphicFactory.h" />
     <ClInclude Include="InputWrapper.h" />
+    <ClInclude Include="ObjectControl.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
