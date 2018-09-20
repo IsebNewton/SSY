@@ -17,8 +17,11 @@ void FontFactory::initTTF()
 
 TTF_Font * FontFactory::loadFont(const char * font, int size)
 {
-	TTF_Font * retFont = NULL;	
-	if (fonts.find(std::string(font)) == fonts.end())
+	TTF_Font * retFont = NULL;
+
+	// Schlüssel muss auch Größe speichern damit unterschiedliche Größen geladen werden können
+	std::string key = std::string(font) + ", " + std::to_string(size);
+	if (fonts.find(std::string(key)) == fonts.end())
 	{
 		std::string fontPath = "C:\\Windows\\Fonts\\" + std::string(font) + ".ttf";
 
@@ -27,26 +30,28 @@ TTF_Font * FontFactory::loadFont(const char * font, int size)
 		{
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, TTF_GetError());
 		}
-		fonts.insert(std::pair<std::string, TTF_Font*>(std::string(font), retFont));
+		fonts.insert(std::pair<std::string, TTF_Font*>(key, retFont));
 	}
 	else
 	{
-		SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "Schrift %s wurde schon geladen.", font);
+		SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "Schrift %s in der Größe %d wurde schon geladen.", font, size);
 	}
 	
 	return retFont;
 }
 
-TTF_Font * FontFactory::getFont(const char * font)
+TTF_Font * FontFactory::getFont(const char * font, int size)
 {
 	TTF_Font * retFont = NULL;
-	if (fonts.find(std::string(font)) != fonts.end())
+
+	std::string key = std::string(font) + ", " + std::to_string(size);
+	if (fonts.find(std::string(key)) != fonts.end())
 	{
-		retFont = fonts.at(std::string(font));
+		retFont = fonts.at(std::string(key));
 	}
 	else
 	{
-		retFont = loadFont(font);
+		retFont = loadFont(font, size);
 	}
 
 	return retFont;

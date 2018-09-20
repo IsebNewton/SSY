@@ -29,7 +29,7 @@ public:
 
 	@return Die gesuchte Schrift oder NULL, wenn die Schrift noch nicht geladen wurde.
 	*/
-	static TTF_Font* getFont(const char* font);
+	static TTF_Font* getFont(const char* font, int size = 100);
 
 	static void quit();
 };

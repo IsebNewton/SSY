@@ -6,27 +6,22 @@ Font::Font(const char * font = "Arial")
 {
 	this->fontName = font;
 	this->size = 24;
-	this->font = FontFactory::loadFont(font);
+	this->font = FontFactory::getFont(font);
 }
 
 Font::Font(const char * font, SDL_Color color, int size)
 {
 	this->fontName = font;
 	this->size = size;
-	this->font = FontFactory::loadFont(font);
+	this->font = FontFactory::getFont(font);
 }
 
 Font::Font(const char * font, SDL_Color color, int size, int style)
 {
 	this->fontName = font;
 	this->size = size;
-	this->font = FontFactory::loadFont(font);
+	this->font = FontFactory::getFont(font);
 	this->setStyle(style);
-}
-
-Font::~Font()
-{
-	TTF_CloseFont(font);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -64,13 +59,15 @@ void Font::setSize(int size)
 	if (size < 0)
 		SDL_LogWarn(SDL_LOG_CATEGORY_SYSTEM, "Ungültiger Größe");
 
-	this->style = size;
-	if (this->font != NULL)
-		TTF_CloseFont(font);
+	if (size != this->size)
+	{
+		this->size = size;
 
-	font = FontFactory::loadFont(this->fontName);
-	this->setStyle(this->style);
-	this->setColor(this->color);
+		font = FontFactory::getFont(this->fontName, size);
+
+		this->setStyle(this->style);
+		this->setColor(this->color);
+	}
 }
 
 int Font::getStyle()
