@@ -2,25 +2,25 @@
 
 
 
-Font::Font(const char * font = "Arial")
+Font::Font(const char * font)
 {
 	this->fontName = font;
 	this->size = 24;
-	this->font = FontFactory::getFont(font);
+	this->font = FontFactory::getFont(font, this->size);
 }
 
-Font::Font(const char * font, SDL_Color color, int size)
+Font::Font(const char * font, int size)
+{
+	this->fontName = font;
+	this->size = 24;
+	this->font = FontFactory::getFont(font, size);
+}
+
+Font::Font(const char * font, int size, int style)
 {
 	this->fontName = font;
 	this->size = size;
-	this->font = FontFactory::getFont(font);
-}
-
-Font::Font(const char * font, SDL_Color color, int size, int style)
-{
-	this->fontName = font;
-	this->size = size;
-	this->font = FontFactory::getFont(font);
+	this->font = FontFactory::getFont(font, size);
 	this->setStyle(style);
 }
 
@@ -39,16 +39,6 @@ void Font::setFont(TTF_Font * font)
 		this->font = font;
 }
 
-SDL_Color Font::getColor()
-{
-	return this->color;
-}
-
-void Font::setColor(SDL_Color color)
-{
-	this->color = color;
-}
-
 int Font::getSize()
 {
 	return this->size;
@@ -57,7 +47,7 @@ int Font::getSize()
 void Font::setSize(int size)
 {
 	if (size < 0)
-		SDL_LogWarn(SDL_LOG_CATEGORY_SYSTEM, "Ungültiger Größe");
+		SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "Ungültiger Größe");
 
 	if (size != this->size)
 	{
@@ -66,7 +56,6 @@ void Font::setSize(int size)
 		font = FontFactory::getFont(this->fontName, size);
 
 		this->setStyle(this->style);
-		this->setColor(this->color);
 	}
 }
 
@@ -78,10 +67,12 @@ int Font::getStyle()
 void Font::setStyle(int style)
 {
 	if (style < 0)
-		SDL_LogWarn(SDL_LOG_CATEGORY_SYSTEM, "Ungültiger Style");
-
-	this->style = style;
-	TTF_SetFontStyle(font, style);
+		SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "Ungültiger Style");
+	else
+	{
+		this->style = style;
+		TTF_SetFontStyle(font, style);
+	}
 }
 
 const char * Font::getFontName()

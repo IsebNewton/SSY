@@ -14,16 +14,13 @@ private:
 
 public:
 	// Konstruktoren
-	Font(const char* font);
-	Font(const char* font, SDL_Color color, int size = 100);
-	Font(const char* font, SDL_Color color, int size, int style);
-	~Font();
+	Font(const char* font = "Arial");
+	Font(const char* font, int size = 11);
+	Font(const char* font, int size, int style);
 
 	// Getter/Setter
 	TTF_Font* getFont();
 	void setFont(TTF_Font* font);
-	SDL_Color getColor();
-	void setColor(SDL_Color color);
 	int getSize();
 	void setSize(int size);
 	int getStyle();

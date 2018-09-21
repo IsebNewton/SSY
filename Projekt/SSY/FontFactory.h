@@ -20,7 +20,7 @@ public:
 
 	@return Die gesuchte Schrift oder NULL, wenn die Schrift noch nicht geladen wurde.
 	*/
-	static TTF_Font* loadFont(const char* font, int size = 100);
+	static TTF_Font* loadFont(const char* font, int size = 11);
 
 	/**
 	Sucht eine geladene Schrift.
@@ -29,7 +29,7 @@ public:
 
 	@return Die gesuchte Schrift oder NULL, wenn die Schrift noch nicht geladen wurde.
 	*/
-	static TTF_Font* getFont(const char* font, int size = 100);
+	static TTF_Font* getFont(const char* font, int size = 11);
 
 	static void quit();
 };
