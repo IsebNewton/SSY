@@ -1,10 +1,13 @@
 #pragma once
 
 #include <SDL.h>
+#include "InputWrapper.h"
+#include "Renderer.h"
 
 struct State
 {
 	bool clicked = false;
+	bool pressed = false;
 	bool hovered = false;
 	bool active = false;
 };
@@ -12,6 +15,7 @@ struct State
 class ObjectControl
 {
 protected:
+	ObjectControl();
 	ObjectControl(SDL_Rect area);
 	ObjectControl(int width, int height);
 	ObjectControl(int posX, int posY, int width, int height);
@@ -35,7 +39,6 @@ public:
 	void setY(int posY);
 	void setWidth(int width);
 	void setHeight(int height);
-	void setState(State state);
 	void setVisible(bool visible);
 	void setOnAction(void(*function)(void));
 
@@ -52,6 +55,10 @@ public:
 	/**
 	Zeichnet das Element.
 	*/
-	virtual void onPaint() { };
+	virtual void onPaint(Renderer* renderer) {};
+	void test()
+	{
+		this->onAction();
+	}
 };
 

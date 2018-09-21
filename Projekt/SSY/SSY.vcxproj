@@ -159,11 +159,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FontFactory.cpp" />
     <ClCompile Include="GenericError.cpp" />
+    <ClCompile Include="GUIElement.cpp" />
+    <ClCompile Include="GUILabeled.cpp" />
     <ClCompile Include="InputWrapper.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="GraphicFactory.cpp" />
@@ -172,12 +175,15 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="EventHandler.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FontFactory.h" />
     <ClInclude Include="GenericError.h" />
     <ClInclude Include="GraphicFactory.h" />
+    <ClInclude Include="GUIElement.h" />
+    <ClInclude Include="GUILabeled.h" />
     <ClInclude Include="InputWrapper.h" />
     <ClInclude Include="ObjectControl.h" />
     <ClInclude Include="Renderer.h" />

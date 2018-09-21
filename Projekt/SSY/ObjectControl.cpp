@@ -2,6 +2,10 @@
 
 
 
+ObjectControl::ObjectControl()
+	: ObjectControl(0, 0, 0, 0)
+{ }
+
 ObjectControl::ObjectControl(SDL_Rect area)
 	: ObjectControl(area.x, area.y, area.w, area.h)
 { }
@@ -16,9 +20,6 @@ ObjectControl::ObjectControl(int posX, int posY, int width, int height)
 	this->area.y = posY;
 	this->setWidth(width);
 	this->setHeight(height);
-
-	this->visible = true;
-	this->valid = false;
 }
 
 ObjectControl::~ObjectControl()
@@ -42,11 +43,13 @@ void ObjectControl::invalidate()
 void ObjectControl::setX(int posX)
 {
 	this->area.x = posX;
+	this->invalidate();
 }
 
 void ObjectControl::setY(int posY)
 {
 	this->area.y = posY;
+	this->invalidate();
 }
 
 void ObjectControl::setWidth(int width)
@@ -58,6 +61,8 @@ void ObjectControl::setWidth(int width)
 	}
 	else
 		this->area.w = width;
+
+	this->invalidate();
 }
 
 void ObjectControl::setHeight(int height)
@@ -69,16 +74,14 @@ void ObjectControl::setHeight(int height)
 	}
 	else
 		this->area.h = height;
-}
 
-void ObjectControl::setState(State state)
-{
-	this->state = state;
+	this->invalidate();
 }
 
 void ObjectControl::setVisible(bool visible)
 {
 	this->visible = visible;
+	this->invalidate();
 }
 
 void ObjectControl::setOnAction(void(*function)(void))
@@ -112,6 +115,31 @@ int ObjectControl::getHeight()
 
 State ObjectControl::getState()
 {
+	int mouseX = InputWrapper::getMouseX();
+	int mouseY = InputWrapper::getMouseY();
+
+	if ((mouseX >= this->area.x) && (mouseX < (this->area.x + this->area.w))
+		&& (mouseY > this->area.y) && (mouseY < (this->area.y + this->area.h)))
+	{
+		this->state.hovered = true;
+		this->state.pressed = false;
+		if (InputWrapper::isMouseButtonDownNow(SDL_BUTTON_LEFT))
+		{
+			this->state.clicked = true;
+		}
+		if (InputWrapper::isMouseButtonUpNow(SDL_BUTTON_LEFT))
+		{
+			this->state.pressed = true;
+			this->state.clicked = false;
+		}
+	}
+	else
+	{
+		this->state.clicked = false;
+		this->state.pressed = false;
+		this->state.hovered = false;
+	}
+
 	return this->state;
 }
 
