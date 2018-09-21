@@ -18,13 +18,14 @@ void Core::startGame()
 	{
 		throw SDLError();
 	}
+
+	FontFactory::initTTF();
+	GraphicFactory::initIMG();
+
 	if (!window->createWindow())
 	{
 		throw SDLError();
 	}
-
-	FontFactory::initTTF();
-	GraphicFactory::initIMG();
 
 	eventHandler = EventHandler();
 	while (!quit)
