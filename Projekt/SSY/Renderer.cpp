@@ -12,7 +12,7 @@ Renderer::Renderer(SDL_Window* window)
 
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_TARGETTEXTURE);
 	if (renderer == NULL)
-		throw GenericError("Renderer konnte nicht erstellt werden");
+		throw SDLError("Renderer konnte nicht erstellt werden");
 }
 
 /**
@@ -44,6 +44,58 @@ void Renderer::drawText(const char* text, const SDL_Rect * rect, Font * font, SD
 
 	SDL_FreeSurface(surface);
 	SDL_DestroyTexture(texture);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+//									Lines												//
+//////////////////////////////////////////////////////////////////////////////////////////
+
+void Renderer::drawLine(int x1, int y1, int x2, int y2)
+{
+	drawLine(x1, y1, x2, y2, SDL_Color{ 0, 0, 0 });
+}
+
+void Renderer::drawLine(int x1, int y1, int x2, int y2, SDL_Color color)
+{
+	SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+	SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
+}
+
+void Renderer::drawLines(const SDL_Point * points, int count)
+{
+	drawLines(points, count, SDL_Color{ 0, 0, 0 });
+}
+
+void Renderer::drawLines(const SDL_Point * points, int count, SDL_Color color)
+{
+	SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+	SDL_RenderDrawLines(renderer, points, count);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+//									Points												//
+//////////////////////////////////////////////////////////////////////////////////////////
+
+void Renderer::drawPoint(int x, int y)
+{
+	drawPoint(x, y, SDL_Color{ 0, 0, 0 });
+}
+
+void Renderer::drawPoint(int x, int y, SDL_Color color)
+{
+	SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+	SDL_RenderDrawPoint(renderer, x, y);
+}
+
+void Renderer::drawPoints(const SDL_Point * points, int count)
+{
+	drawPoints(points, count, SDL_Color{ 0, 0, 0 });
+}
+
+void Renderer::drawPoints(const SDL_Point * points, int count, SDL_Color color)
+{
+	SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+	SDL_RenderDrawPoints(renderer, points, count);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
