@@ -20,7 +20,6 @@ protected:
 	ObjectControl(SDL_Rect area);
 	ObjectControl(int width, int height);
 	ObjectControl(int posX, int posY, int width, int height);
-	~ObjectControl();
 
 	void (*onAction)(void);
 	bool visible;
@@ -29,6 +28,7 @@ protected:
 	SDL_Rect area;
 
 public:
+	~ObjectControl();
 	/**
 	Funktion macht das Element ungültig und führt somit zum neuen Rendern.
 	*/
