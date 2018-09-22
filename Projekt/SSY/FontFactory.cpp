@@ -57,6 +57,20 @@ TTF_Font * FontFactory::getFont(const char * font, int size)
 	return retFont;
 }
 
+void FontFactory::calculateTextSize(std::string text, TTF_Font * font, int * width, int * height)
+{
+	if (font == NULL)
+		SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "Schrift zum Kalkulieren darf nicht NULL sein.");
+	else
+	{
+		SDL_Surface * surface = TTF_RenderText_Solid(font, text.c_str(), SDL_Color{ 0, 0, 0 });
+		*width = surface->w;
+		*height = surface->h;
+
+		SDL_FreeSurface(surface);
+	}
+}
+
 void FontFactory::quit()
 {
 	for (std::map<std::string, TTF_Font*>::iterator it = fonts.begin(); it != fonts.end(); ++it)

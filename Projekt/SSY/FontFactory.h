@@ -31,6 +31,16 @@ public:
 	*/
 	static TTF_Font* getFont(const char* font, int size = 11);
 
+	/**
+	Überprüft die nötige Breite und Höhe eines Textes zum guten Rendern.
+
+	@param text Text.
+	@param font Schrift mit welcher der Text geschrieben wird.
+	@param width Breite welche an die breite des Textes angepasst wird.
+	@param height Höhe welche an die höhe des Textes angepasst wird.
+	*/
+	static void calculateTextSize(std::string text, TTF_Font* font, int* width, int* height);
+
 	static void quit();
 };
 
