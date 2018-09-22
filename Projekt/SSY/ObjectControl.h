@@ -56,9 +56,5 @@ public:
 	Zeichnet das Element.
 	*/
 	virtual void onPaint(Renderer* renderer) {};
-	void test()
-	{
-		this->onAction();
-	}
 };
 

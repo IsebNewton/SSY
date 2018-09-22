@@ -10,9 +10,9 @@ protected:
 		initialize();
 	};
 	GUILabeled(std::string text) : GUIElement()
-	{ 
-		this->text = text;
+	{
 		initialize();
+		this->setText(text);
 	};
 	GUILabeled(SDL_Rect area)
 		: GUIElement(area)

@@ -16,13 +16,17 @@ GUILabeled::~GUILabeled()
 void GUILabeled::initialize()
 {
 	this->font = new Font("Arial", 11);
-	this->backColor = SDL_Color{ 255, 255, 255 };
+	this->backColor = SDL_Color{ 212, 212, 212 };
 	this->foreColor = SDL_Color{ 0, 0, 0 };
 }
 
 void GUILabeled::setFont(Font * font)
 {
 	this->font = font;
+	FontFactory::calculateTextSize(text, font->getFont(), &area.w, &area.h);
+	// Astand der Schrift zum Rand
+	area.w += 8;
+	area.h += 8;
 	this->invalidate();
 }
 
@@ -35,6 +39,10 @@ void GUILabeled::setPicture(SDL_Texture * picture)
 void GUILabeled::setText(std::string text)
 {
 	this->text = text;
+	FontFactory::calculateTextSize(text, font->getFont(), &area.w, &area.h);
+	// Astand der Schrift zum Rand
+	area.w += 8;
+	area.h += 8;
 	this->invalidate();
 }
 

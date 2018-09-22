@@ -9,11 +9,12 @@ void Button::initialize()
 {
 	GUILabeled::initialize();
 
-	this->borderSize = 3;
-	this->borderColor = SDL_Color{78, 61, 49, 255};
-	this->foreColor = SDL_Color{ 255, 255, 0, 255 };
-	this->hoveredColor = SDL_Color{ 96, 69, 57, 255 };
-	this->clickedColor = SDL_Color{ 104, 77, 65, 255 };
+	this->borderSize = 1;
+	area.w += 2 * borderSize;
+	area.h += 2 * borderSize;
+	this->borderColor = SDL_Color{78, 61, 49};
+	this->hoveredColor = SDL_Color{ (Uint8)(backColor.r + 10), (Uint8)(backColor.g + 10), (Uint8)(backColor.b + 10) };
+	this->clickedColor = SDL_Color{ (Uint8)(backColor.r - 10), (Uint8)(backColor.g - 10), (Uint8)(backColor.b - 10) };
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
