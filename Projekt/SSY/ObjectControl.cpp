@@ -62,6 +62,7 @@ void ObjectControl::setWidth(int width)
 	else
 		this->area.w = width;
 
+	onResize();
 	this->invalidate();
 }
 
@@ -75,6 +76,7 @@ void ObjectControl::setHeight(int height)
 	else
 		this->area.h = height;
 
+	onResize();
 	this->invalidate();
 }
 

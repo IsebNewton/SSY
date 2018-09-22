@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL.h>
+#include "Events.h"
 #include "InputWrapper.h"
 #include "Renderer.h"
 
@@ -12,7 +13,7 @@ struct State
 	bool active = false;
 };
 
-class ObjectControl
+class ObjectControl : Events
 {
 protected:
 	ObjectControl();
@@ -56,5 +57,28 @@ public:
 	Zeichnet das Element.
 	*/
 	virtual void onPaint(Renderer* renderer) {};
+
+	/**
+	Event wird aufgerufen wenn die Maus über dem Element ist.
+	*/
+	virtual void onMouseOver() override {};
+
+	/**
+	Event wird aufgerufen wenn die Maus aus dem Element ist.
+	*/
+	virtual void onMouseLeave() override {};
+
+	/**
+	Event wird aufgerufen wenn auf das Element geklickt wird.
+	*/
+	virtual void onClick() override
+	{
+		onAction();
+	};
+
+	/**
+	Event wird aufgerufen wenn sich die Größe des Elements geklickt wird.
+	*/
+	virtual void onResize() override {};
 };
 

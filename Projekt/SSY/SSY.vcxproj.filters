@@ -98,5 +98,8 @@
     <ClInclude Include="Button.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Events.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

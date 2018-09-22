@@ -178,6 +178,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="EventHandler.h" />
+    <ClInclude Include="Events.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FontFactory.h" />
     <ClInclude Include="GenericError.h" />
