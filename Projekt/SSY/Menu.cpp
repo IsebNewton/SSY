@@ -27,6 +27,12 @@ Menu::Menu(int posX, int posY, int width, int height)
 
 Menu::~Menu()
 {
+	for (std::list<GUIElement*>::iterator it = this->objects.begin();
+		it != this->objects.end(); ++it)
+	{
+		delete (*it);
+	}
+
 	if (this->backgroundTexture != NULL)
 		SDL_DestroyTexture(this->backgroundTexture);
 }
