@@ -259,7 +259,7 @@ SDL_Texture * Renderer::getTexture(SDL_Surface * surface)
 
 SDL_Texture * Renderer::getTexture(const char * path)
 {
-	return GraphicFactory::loadTexture(renderer, path);
+	return GraphicFactory::getTexture(renderer, path);
 }
 
 void Renderer::presentRenderer()

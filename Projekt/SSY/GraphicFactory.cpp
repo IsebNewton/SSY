@@ -31,6 +31,8 @@ SDL_Surface * GraphicFactory::loadPicture(const char * path)
 		picture = IMG_Load(completePath.c_str());
 		if (picture == NULL)
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, IMG_GetError());
+		else
+			surfaces.insert(std::pair<std::string, SDL_Surface*>(key, picture));
 	}
 	else
 	{
@@ -87,10 +89,8 @@ SDL_Texture * GraphicFactory::loadTexture(SDL_Renderer * renderer, const char * 
 		std::string key = std::string(path);
 		if (textures.find(std::string(key)) == textures.end())
 		{
-			SDL_Surface* picture = loadPicture(path);
+			SDL_Surface* picture = getPicture(path);
 			texture = SDL_CreateTextureFromSurface(renderer, picture);
-			SDL_FreeSurface(picture);	// Speicher wieder frei geben
-			picture = NULL;
 
 			if (texture == nullptr)
 				SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, SDL_GetError());
