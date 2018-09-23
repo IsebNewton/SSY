@@ -32,7 +32,7 @@ void Core::startGame()
 	{
 		long frameTime = SDL_GetTicks();
 
-		eventHandler.onHandleEvents();
+		eventHandler.onHandleEvents(window->getObjects());
 
 		window->onRender();
 

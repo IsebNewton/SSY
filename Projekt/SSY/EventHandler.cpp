@@ -1,11 +1,10 @@
 #include "EventHandler.h"
-#include <SDL.h>
 #include "Core.h"
 
 /**
 Behandelt alle Events
 */
-void EventHandler::onHandleEvents()
+void EventHandler::onHandleEvents(std::list<ObjectControl*> controls)
 {
 	InputWrapper::updateEvents();
 
@@ -14,13 +13,20 @@ void EventHandler::onHandleEvents()
 		Core::quit = true;
 	}
 
-	onHandleMouseEvent();
+	onHandleMouseEvent(controls);
 	onHandleKeyEvent();
 }
 
-void EventHandler::onHandleMouseEvent()
+void EventHandler::onHandleMouseEvent(std::list<ObjectControl*> controls)
 {
-	// TODO:
+	for (std::list<ObjectControl*>::iterator it = controls.begin();
+		it != controls.end(); ++it)
+	{
+		if ((*it)->getState().pressed)
+		{
+			(*it)->onClick();
+		}
+	}
 }
 
 void EventHandler::onHandleKeyEvent()
