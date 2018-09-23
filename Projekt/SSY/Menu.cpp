@@ -27,12 +27,7 @@ Menu::Menu(int posX, int posY, int width, int height)
 
 Menu::~Menu()
 {
-	for (std::list<GUIElement*>::iterator it = this->objects.begin();
-		it != this->objects.end(); ++it)
-	{
-		delete (*it);
-	}
-
+	objects.clear();
 	if (this->backgroundTexture != NULL)
 		SDL_DestroyTexture(this->backgroundTexture);
 }
@@ -90,10 +85,10 @@ void Menu::onPaint(Renderer* renderer)
 		renderer->drawBackground(&area, backgroundColor);
 	}
 
-	for (std::list<GUIElement*>::iterator it = objects.begin(); it != objects.end(); ++it)
+	/*for (std::list<GUIElement*>::iterator it = objects.begin(); it != objects.end(); ++it)
 	{
 		(*it)->onPaint(renderer);
-	}
+	}*/
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
