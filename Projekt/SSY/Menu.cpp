@@ -20,11 +20,15 @@ Menu::Menu(int posX, int posY, int width, int height)
 	this->area.y = posY;
 	this->setWidth(width);
 	this->setHeight(height);
+
+	this->backgroundColor = SDL_Color{ 0, 0, 0 };
 }
 
 
 Menu::~Menu()
 {
+	if (this->backgroundTexture != NULL)
+		SDL_DestroyTexture(this->backgroundTexture);
 }
 
 void Menu::invalidate()
@@ -42,6 +46,21 @@ void Menu::addObject(GUIElement * object)
 	}
 }
 
+void Menu::addObjects(GUIElement* object...)
+{
+	GUIElement* element = object;
+
+	va_list objects;
+	va_start(objects, object);
+
+	while (element != NULL)
+	{
+		this->addObject(element);
+		element = va_arg(objects, GUIElement*);
+	}
+	va_end(objects);
+}
+
 void Menu::removeObject(GUIElement * object)
 {
 	if (object != NULL)
@@ -52,6 +71,19 @@ void Menu::removeObject(GUIElement * object)
 
 void Menu::onPaint(Renderer* renderer)
 {
+	if (backgroundTexture != NULL)
+	{
+		renderer->drawBackground(&area, backgroundTexture);
+	}
+	else if (std::strlen(background.c_str()) > 0)
+	{
+		backgroundTexture = renderer->getTexture(background.c_str());
+	}
+	else
+	{
+		renderer->drawBackground(&area, backgroundColor);
+	}
+
 	for (std::list<GUIElement*>::iterator it = objects.begin(); it != objects.end(); ++it)
 	{
 		(*it)->onPaint(renderer);
@@ -110,6 +142,17 @@ void Menu::setVisible(bool visible)
 	this->invalidate();
 }
 
+void Menu::setBackgroundColor(SDL_Color backgroundColor)
+{
+	this->backgroundColor = backgroundColor;
+}
+
+void Menu::setBackground(std::string background)
+{
+	this->background = background;
+	this->backgroundTexture = NULL;	// Damit die Texture wieder aktualisiert wird
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////
 //										Getter											//
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -142,6 +185,16 @@ bool Menu::isVisible()
 bool Menu::isValid()
 {
 	return this->valid;
+}
+
+SDL_Color Menu::getBackgroundColor()
+{
+	return this->backgroundColor;
+}
+
+std::string Menu::getBackground()
+{
+	return this->background;
 }
 
 std::list<GUIElement*> Menu::getObjects()

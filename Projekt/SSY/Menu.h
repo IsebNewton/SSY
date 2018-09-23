@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <list>
 #include <algorithm>
+#include <cstdarg>
 #include "GUIElement.h"
 
 class Menu
@@ -11,6 +12,9 @@ private:
 	bool visible;
 	bool valid;
 	SDL_Rect area;
+	SDL_Color backgroundColor;
+	std::string background;
+	SDL_Texture* backgroundTexture = NULL;
 
 public:
 	Menu();
@@ -18,11 +22,20 @@ public:
 	Menu(int width, int height);
 	Menu(int posX, int posY, int width, int height);
 	~Menu();
+
 	/**
 	Funktion macht das Element ungültig und führt somit zum neuen Rendern.
 	*/
 	void invalidate();
 	void addObject(GUIElement* object);
+
+	/**
+	Funktion fügt GUIElemente dem Menü hinzu.
+	WICHTIG: Man muss als letztes Argument NULL übergeben da sonst eine Speicherzugriffsverletzung stattfindet.
+
+	@params object Liste von GUIElementen welche hinzugefügt werden sollen unnd am Ende NULL 
+	*/
+	void addObjects(GUIElement* object...);
 	void removeObject(GUIElement* object);
 	void onPaint(Renderer* renderer);
 
@@ -33,6 +46,8 @@ public:
 	void setWidth(int width);
 	void setHeight(int height);
 	void setVisible(bool visible);
+	void setBackgroundColor(SDL_Color backgroundColor);
+	void setBackground(std::string background);
 
 	int getX();
 	int getY();
@@ -40,6 +55,8 @@ public:
 	int getHeight();
 	bool isVisible();
 	bool isValid();
+	SDL_Color getBackgroundColor();
+	std::string getBackground();
 	std::list<GUIElement*> getObjects();
 };
 
