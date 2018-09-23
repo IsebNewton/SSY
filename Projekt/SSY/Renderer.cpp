@@ -238,6 +238,11 @@ void Renderer::drawBackground(const SDL_Rect * rect, SDL_Surface* surface)
 	this->drawPicture(rect, surface);
 }
 
+void Renderer::drawBackground(const SDL_Rect * rect, SDL_Texture * texture)
+{
+	this->drawTexture(rect, texture);
+}
+
 void Renderer::drawBackground(const SDL_Rect * dstRect, const SDL_Rect * srcRect, SDL_Surface* surface)
 {
 	this->drawPicture(dstRect, srcRect, surface);

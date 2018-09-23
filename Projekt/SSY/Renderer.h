@@ -50,6 +50,7 @@ public:
 	void drawBackground(SDL_Surface* surface);
 	void drawBackground(const SDL_Rect* rect, SDL_Color color);
 	void drawBackground(const SDL_Rect* rect, SDL_Surface* surface);
+	void drawBackground(const SDL_Rect* rect, SDL_Texture* texture);
 	void drawBackground(const SDL_Rect* dstRect, const SDL_Rect* srcRect, SDL_Surface* surface);
 
 	// Nötige Renderfunktionen
