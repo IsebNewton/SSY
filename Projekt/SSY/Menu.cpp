@@ -1,5 +1,6 @@
 #include "Menu.h"
-
+#include "Color.h"
+#include "GUILabeled.h"
 
 
 Menu::Menu()
@@ -21,7 +22,9 @@ Menu::Menu(int posX, int posY, int width, int height)
 	this->setWidth(width);
 	this->setHeight(height);
 
-	this->backgroundColor = SDL_Color{ 0, 0, 0 };
+	this->backgroundColor = Color::TRANSPARENT;
+	this->borderSize = 0;
+	this->visible = true;
 }
 
 
@@ -84,11 +87,7 @@ void Menu::onPaint(Renderer* renderer)
 	{
 		renderer->drawBackground(&area, backgroundColor);
 	}
-
-	/*for (std::list<GUIElement*>::iterator it = objects.begin(); it != objects.end(); ++it)
-	{
-		(*it)->onPaint(renderer);
-	}*/
+	renderer->drawRectangle(&area, borderSize, borderColor);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -140,6 +139,10 @@ void Menu::setHeight(int height)
 void Menu::setVisible(bool visible)
 {
 	this->visible = visible;
+	for (std::list<GUIElement*>::iterator it = objects.begin(); it != objects.end(); ++it)
+	{
+		(*it)->setVisible(visible);
+	}
 	this->invalidate();
 }
 
@@ -152,6 +155,29 @@ void Menu::setBackground(std::string background)
 {
 	this->background = background;
 	this->backgroundTexture = NULL;	// Damit die Texture wieder aktualisiert wird
+}
+
+void Menu::setBorderSize(int size)
+{
+	this->borderSize = size;
+}
+
+void Menu::setBorderColor(SDL_Color color)
+{
+	this->borderColor = color;
+}
+
+void Menu::setCaption(std::string caption)
+{
+	this->caption = caption;
+	if (captionLabel == NULL)
+	{
+		captionLabel = new Label(caption);
+		captionLabel->setWidth(this->getWidth());
+		captionLabel->setHeight(20);
+		this->addObject(captionLabel);
+	}
+	captionLabel->setText(caption);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -201,4 +227,24 @@ std::string Menu::getBackground()
 std::list<GUIElement*> Menu::getObjects()
 {
 	return objects;
+}
+
+int Menu::getBorderSize()
+{
+	return this->borderSize;
+}
+
+SDL_Color Menu::getBorderColor()
+{
+	return this->borderColor;
+}
+
+std::string Menu::getCaption()
+{
+	return this->caption;
+}
+
+Label * Menu::getCaptionLabel()
+{
+	return this->captionLabel;
 }

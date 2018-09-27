@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <cstdarg>
 #include "GUIElement.h"
+#include "Label.h"
 
 class Menu
 {
@@ -15,6 +16,12 @@ private:
 	SDL_Color backgroundColor;
 	std::string background;
 	SDL_Texture* backgroundTexture = NULL;
+
+	int borderSize;
+	SDL_Color borderColor;
+
+	std::string caption;
+	Label* captionLabel = NULL;
 
 public:
 	Menu();
@@ -48,6 +55,9 @@ public:
 	void setVisible(bool visible);
 	void setBackgroundColor(SDL_Color backgroundColor);
 	void setBackground(std::string background);
+	void setBorderSize(int size);
+	void setBorderColor(SDL_Color color);
+	void setCaption(std::string caption);
 
 	int getX();
 	int getY();
@@ -58,5 +68,9 @@ public:
 	SDL_Color getBackgroundColor();
 	std::string getBackground();
 	std::list<GUIElement*> getObjects();
+	int getBorderSize();
+	SDL_Color getBorderColor();
+	std::string getCaption();
+	Label* getCaptionLabel();
 };
 
