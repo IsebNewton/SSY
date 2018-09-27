@@ -26,6 +26,10 @@ void EventHandler::onHandleMouseEvent(std::list<ObjectControl*> controls)
 		{
 			(*it)->onClick();
 		}
+		if ((*it)->getState().hovered)
+		{
+			(*it)->onMouseOver();
+		}
 	}
 }
 
