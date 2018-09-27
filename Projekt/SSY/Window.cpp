@@ -58,7 +58,7 @@ void Window::initWindow()
 	int height = 0;
 	SDL_GetWindowSize(window, &width, &height);
 
-	static Menu* menu = new Menu();
+	Menu* menu = new Menu();
 	menu->setHeight(height / 2);
 	menu->setWidth(width / 3);
 	menu->setX(width / 3);
@@ -89,10 +89,6 @@ void Window::initWindow()
 	optButton->setX(menu->getWidth() / 5);
 	optButton->setY(menu->getHeight() / 9 * 3 + 24);
 	optButton->setFont(font);
-	optButton->setOnAction([](void*) -> int {
-		menu->setVisible(false);
-		return 0;
-	});
 
 	Button* exitButton = new Button("Exit");
 	exitButton->setWidth(buttonWidth);
