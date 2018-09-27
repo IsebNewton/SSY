@@ -22,7 +22,6 @@ protected:
 	~GUILabeled();
 
 	SDL_Texture * picture = NULL;
-	SDL_Texture * textTexture = NULL;
 	std::string text;
 	Font * font;
 	SDL_Rect textRect;

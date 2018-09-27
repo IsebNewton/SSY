@@ -1,12 +1,10 @@
 #include "GUILabeled.h"
-
+#include "Color.h"
 
 GUILabeled::~GUILabeled()
 {
 	if (picture != NULL)
 		SDL_DestroyTexture(picture);
-	if (textTexture != NULL)
-		SDL_DestroyTexture(textTexture);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -16,8 +14,7 @@ GUILabeled::~GUILabeled()
 void GUILabeled::initialize()
 {
 	this->font = new Font("Arial", 11);
-	this->backColor = SDL_Color{ 212, 212, 212 };
-	this->foreColor = SDL_Color{ 0, 0, 0 };
+	this->foreColor = Color::BLACK;
 }
 
 void GUILabeled::setFont(Font * font)
@@ -72,7 +69,7 @@ void GUILabeled::onPaint(Renderer * renderer)
 		this->textRect.x = this->area.x + pictureRect.w + 4;
 		this->textRect.w = pictureRect.w - 4;
 
-		renderer->drawTexture(&pictureRect, picture);
+		renderer->drawTexture(&pictureRect, picture, this->foreColor.a);
 	}
 
 	renderer->drawText(this->text.c_str(), &this->textRect, this->font, this->foreColor);

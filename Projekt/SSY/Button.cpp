@@ -1,5 +1,5 @@
 #include "Button.h"
-
+#include "Color.h"
 
 Button::~Button()
 {
@@ -9,12 +9,14 @@ void Button::initialize()
 {
 	GUILabeled::initialize();
 
-	this->borderSize = 1;
+	this->borderSize = 2;
 	area.w += 2 * borderSize;
 	area.h += 2 * borderSize;
-	this->borderColor = SDL_Color{78, 61, 49};
-	this->hoveredColor = SDL_Color{ (Uint8)(backColor.r + 10), (Uint8)(backColor.g + 10), (Uint8)(backColor.b + 10) };
-	this->clickedColor = SDL_Color{ (Uint8)(backColor.r - 10), (Uint8)(backColor.g - 10), (Uint8)(backColor.b - 10) };
+	this->foreColor = Color::AQUA;
+	this->backColor = Color::GRAY;
+	this->borderColor = Color::SILVER;
+	this->hoveredColor = Color::LIGHT_GRAY;
+	this->clickedColor = Color::DARK_GRAY;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////

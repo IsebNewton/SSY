@@ -15,10 +15,8 @@ protected:
 public:
 	// Getter und Setter
 
-	void setBackColor(SDL_Color color);
 	void setForeColor(SDL_Color color);
 
-	SDL_Color getBackColor();
 	SDL_Color getForeColor();
 };
 

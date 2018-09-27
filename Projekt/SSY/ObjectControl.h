@@ -27,6 +27,9 @@ protected:
 	State state;
 	SDL_Rect area;
 
+	SDL_Color backColor;
+	SDL_Texture* background = NULL;
+
 public:
 	~ObjectControl();
 	/**
@@ -42,6 +45,8 @@ public:
 	void setHeight(int height);
 	void setVisible(bool visible);
 	void setOnAction(void(*function)(void));
+	void setBackColor(SDL_Color color);
+	void setBackground(SDL_Texture* background);
 
 	int getX();
 	int getY();
@@ -50,6 +55,8 @@ public:
 	State getState();
 	bool isVisible();
 	bool isValid();
+	SDL_Color getBackColor();
+	SDL_Texture* getBackground();
 
 	// Virtuelle Funktionen
 

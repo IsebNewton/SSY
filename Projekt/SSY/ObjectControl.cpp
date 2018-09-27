@@ -20,6 +20,8 @@ ObjectControl::ObjectControl(int posX, int posY, int width, int height)
 	this->area.y = posY;
 	this->setWidth(width);
 	this->setHeight(height);
+
+	visible = true;
 }
 
 ObjectControl::~ObjectControl()
@@ -91,6 +93,18 @@ void ObjectControl::setOnAction(void(*function)(void))
 	this->onAction = function;
 }
 
+void ObjectControl::setBackColor(SDL_Color color)
+{
+	this->backColor = color;
+	this->invalidate();
+}
+
+void ObjectControl::setBackground(SDL_Texture * background)
+{
+	this->background = background;
+	this->invalidate();
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////
 //										Getter											//
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -153,4 +167,14 @@ bool ObjectControl::isVisible()
 bool ObjectControl::isValid()
 {
 	return this->valid;
+}
+
+SDL_Color ObjectControl::getBackColor()
+{
+	return this->backColor;
+}
+
+SDL_Texture * ObjectControl::getBackground()
+{
+	return this->background;
 }
