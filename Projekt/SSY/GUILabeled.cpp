@@ -7,6 +7,21 @@ GUILabeled::~GUILabeled()
 		SDL_DestroyTexture(picture);
 }
 
+void GUILabeled::updateSize()
+{
+	int width = 0;
+	int height = 0;
+	FontFactory::calculateTextSize(text, font->getFont(), &width, &height);
+	if (width >= area.w)
+	{
+		area.w = width + 8;	// Astand der Schrift zum Rand
+	}
+	if (height >= area.h)
+	{
+		area.h = height + 8;	// Astand der Schrift zum Rand
+	}
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////
 //									Getter/Setter										//
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -20,10 +35,7 @@ void GUILabeled::initialize()
 void GUILabeled::setFont(Font * font)
 {
 	this->font = font;
-	FontFactory::calculateTextSize(text, font->getFont(), &area.w, &area.h);
-	// Astand der Schrift zum Rand
-	area.w += 8;
-	area.h += 8;
+	this->updateSize();
 	this->invalidate();
 }
 
@@ -36,10 +48,7 @@ void GUILabeled::setPicture(SDL_Texture * picture)
 void GUILabeled::setText(std::string text)
 {
 	this->text = text;
-	FontFactory::calculateTextSize(text, font->getFont(), &area.w, &area.h);
-	// Astand der Schrift zum Rand
-	area.w += 8;
-	area.h += 8;
+	this->updateSize();
 	this->invalidate();
 }
 

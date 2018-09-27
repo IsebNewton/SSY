@@ -4,6 +4,9 @@
 
 class GUILabeled : public GUIElement
 {
+private:
+	void updateSize();
+
 protected:
 	GUILabeled() : GUIElement()
 	{
