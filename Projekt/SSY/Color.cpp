@@ -22,3 +22,11 @@ const SDL_Color Color::AQUA = SDL_Color{ 0, 255, 255, 255 };
 // Other Colors
 
 const SDL_Color Color::TRANSPARENT = SDL_Color{ 0, 0, 0, 0 };
+const SDL_Color Color::DARK_RED = SDL_Color{ 139, 0, 0, 255 };
+const SDL_Color Color::DARK_GREEN = SDL_Color{ 0, 100, 0, 255 };
+const SDL_Color Color::DARK_BLUE = SDL_Color{ 0, 0, 139, 255 };
+const SDL_Color Color::DARK_GRAY = SDL_Color{ 169, 169, 169, 255 };
+const SDL_Color Color::LIGHT_GREEN = SDL_Color{ 144, 238, 144, 255 };
+const SDL_Color Color::LIGHT_BLUE = SDL_Color{ 173, 216, 230, 255 };
+const SDL_Color Color::LIGHT_YELLOW = SDL_Color{ 255, 255, 224, 255 };
+const SDL_Color Color::LIGHT_GRAY = SDL_Color{ 211, 211, 211, 255 };

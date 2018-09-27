@@ -35,4 +35,12 @@ public:
 	// Other Colors
 
 	static const SDL_Color TRANSPARENT;
+	static const SDL_Color DARK_RED;
+	static const SDL_Color DARK_GREEN;
+	static const SDL_Color DARK_BLUE;
+	static const SDL_Color DARK_GRAY;
+	static const SDL_Color LIGHT_GREEN;
+	static const SDL_Color LIGHT_BLUE;
+	static const SDL_Color LIGHT_YELLOW;
+	static const SDL_Color LIGHT_GRAY;
 };
