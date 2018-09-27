@@ -160,6 +160,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Color.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="Font.cpp" />
@@ -177,6 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Color.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="EventHandler.h" />
     <ClInclude Include="Events.h" />
