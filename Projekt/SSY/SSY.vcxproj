@@ -169,6 +169,7 @@
     <ClCompile Include="GUIElement.cpp" />
     <ClCompile Include="GUILabeled.cpp" />
     <ClCompile Include="InputWrapper.cpp" />
+    <ClCompile Include="Label.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="GraphicFactory.cpp" />
     <ClCompile Include="Menu.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="GUIElement.h" />
     <ClInclude Include="GUILabeled.h" />
     <ClInclude Include="InputWrapper.h" />
+    <ClInclude Include="Label.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="ObjectControl.h" />
     <ClInclude Include="Renderer.h" />
