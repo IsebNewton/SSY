@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include "Color.h"
 
 /**
 Konstruktor erzeugt ein neuen Renderer für das übergebene Fenster.
@@ -13,6 +14,8 @@ Renderer::Renderer(SDL_Window* window)
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_TARGETTEXTURE);
 	if (renderer == NULL)
 		throw SDLError("Renderer konnte nicht erstellt werden");
+
+	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 }
 
 /**
@@ -29,7 +32,7 @@ Renderer::~Renderer()
 
 void Renderer::drawText(const char* text, const SDL_Rect * rect, Font * font)
 {
-	this->drawText(text, rect, font, SDL_Color{ 0, 0, 0 });
+	this->drawText(text, rect, font, Color::BLACK);
 }
 
 void Renderer::drawText(const char* text, const SDL_Rect * rect, Font * font, SDL_Color color)
@@ -39,6 +42,7 @@ void Renderer::drawText(const char* text, const SDL_Rect * rect, Font * font, SD
 
 	SDL_Surface * surface = TTF_RenderText_Solid(font->getFont(), text, color);
 	SDL_Texture * texture = GraphicFactory::loadTextureFromSurface(renderer, surface);
+	SDL_SetTextureAlphaMod(texture, color.a);
 
 	// Damit der Text nicht gezogen wird und nicht verpixelt aussieht
 	SDL_Rect textRect = SDL_Rect{ rect->x, rect->y, rect->w, rect->h };
@@ -70,7 +74,7 @@ void Renderer::drawText(const char* text, const SDL_Rect * rect, Font * font, SD
 
 void Renderer::drawLine(int x1, int y1, int x2, int y2)
 {
-	drawLine(x1, y1, x2, y2, SDL_Color{ 0, 0, 0 });
+	drawLine(x1, y1, x2, y2, Color::BLACK);
 }
 
 void Renderer::drawLine(int x1, int y1, int x2, int y2, SDL_Color color)
@@ -81,7 +85,7 @@ void Renderer::drawLine(int x1, int y1, int x2, int y2, SDL_Color color)
 
 void Renderer::drawLines(const SDL_Point * points, int count)
 {
-	drawLines(points, count, SDL_Color{ 0, 0, 0 });
+	drawLines(points, count, Color::BLACK);
 }
 
 void Renderer::drawLines(const SDL_Point * points, int count, SDL_Color color)
@@ -96,7 +100,7 @@ void Renderer::drawLines(const SDL_Point * points, int count, SDL_Color color)
 
 void Renderer::drawPoint(int x, int y)
 {
-	drawPoint(x, y, SDL_Color{ 0, 0, 0 });
+	drawPoint(x, y, Color::BLACK);
 }
 
 void Renderer::drawPoint(int x, int y, SDL_Color color)
@@ -107,7 +111,7 @@ void Renderer::drawPoint(int x, int y, SDL_Color color)
 
 void Renderer::drawPoints(const SDL_Point * points, int count)
 {
-	drawPoints(points, count, SDL_Color{ 0, 0, 0 });
+	drawPoints(points, count, Color::BLACK);
 }
 
 void Renderer::drawPoints(const SDL_Point * points, int count, SDL_Color color)
@@ -122,7 +126,7 @@ void Renderer::drawPoints(const SDL_Point * points, int count, SDL_Color color)
 
 void Renderer::drawRectangle(const SDL_Rect * rect)
 {
-	this->drawRectangle(rect, SDL_Color{ 0, 0, 0 });
+	this->drawRectangle(rect, Color::BLACK);
 }
 
 void Renderer::drawRectangle(const SDL_Rect * rect, SDL_Color color)
@@ -171,7 +175,7 @@ void Renderer::drawRectangle(const SDL_Rect * rect, int borderSize, SDL_Color co
 
 void Renderer::fillRectangle(const SDL_Rect * rect)
 {
-	this->fillRectangle(rect, SDL_Color{0, 0, 0});
+	this->fillRectangle(rect, Color::BLACK);
 }
 
 void Renderer::fillRectangle(const SDL_Rect * rect, SDL_Color color)
@@ -198,13 +202,15 @@ void Renderer::drawPicture(const SDL_Rect * dstRect, const SDL_Rect * srcRect, S
 	SDL_DestroyTexture(texture);
 }
 
-void Renderer::drawTexture(const SDL_Rect * rect, SDL_Texture * texture)
+void Renderer::drawTexture(const SDL_Rect * rect, SDL_Texture * texture, Uint8 alpha)
 {
+	SDL_SetTextureAlphaMod(texture, alpha);
 	SDL_RenderCopy(renderer, texture, NULL, rect);
 }
 
-void Renderer::drawTexture(const SDL_Rect * dstRect, const SDL_Rect * srcRect, SDL_Texture * texture)
+void Renderer::drawTexture(const SDL_Rect * dstRect, const SDL_Rect * srcRect, SDL_Texture * texture, Uint8 alpha)
 {
+	SDL_SetTextureAlphaMod(texture, alpha);
 	SDL_RenderCopy(renderer, texture, srcRect, dstRect);
 }
 
@@ -218,9 +224,9 @@ void Renderer::drawBackground(SDL_Color color)
 	SDL_RenderClear(renderer);
 }
 
-void Renderer::drawBackground(SDL_Texture * texture)
+void Renderer::drawBackground(SDL_Texture * texture, Uint8 alpha)
 {
-	this->drawTexture(NULL, texture);
+	this->drawTexture(NULL, texture, alpha);
 }
 
 void Renderer::drawBackground(SDL_Surface* surface)
@@ -238,9 +244,9 @@ void Renderer::drawBackground(const SDL_Rect * rect, SDL_Surface* surface)
 	this->drawPicture(rect, surface);
 }
 
-void Renderer::drawBackground(const SDL_Rect * rect, SDL_Texture * texture)
+void Renderer::drawBackground(const SDL_Rect * rect, SDL_Texture * texture, Uint8 alpha)
 {
-	this->drawTexture(rect, texture);
+	this->drawTexture(rect, texture, alpha);
 }
 
 void Renderer::drawBackground(const SDL_Rect * dstRect, const SDL_Rect * srcRect, SDL_Surface* surface)
@@ -265,4 +271,9 @@ SDL_Texture * Renderer::getTexture(const char * path)
 void Renderer::presentRenderer()
 {
 	SDL_RenderPresent(renderer);
+}
+
+void Renderer::setRenderBlendMode(SDL_BlendMode mode)
+{
+	SDL_SetRenderDrawBlendMode(renderer, mode);
 }

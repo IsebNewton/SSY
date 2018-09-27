@@ -43,7 +43,7 @@ void Menu::addObject(GUIElement * object)
 	{
 		object->setX(object->getX() + this->getX());
 		object->setY(object->getY() + this->getY());
-		this->objects.push_back(object);
+		this->objects.insert(objects.end(), object);
 	}
 }
 

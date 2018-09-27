@@ -1,4 +1,5 @@
 #include "FontFactory.h"
+#include "Color.h"
 
 bool FontFactory::isTTFInit = false;
 std::map<std::string, TTF_Font*> FontFactory::fonts;
@@ -63,7 +64,7 @@ void FontFactory::calculateTextSize(std::string text, TTF_Font * font, int * wid
 		SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "Schrift zum Kalkulieren darf nicht NULL sein.");
 	else
 	{
-		SDL_Surface * surface = TTF_RenderText_Solid(font, text.c_str(), SDL_Color{ 0, 0, 0 });
+		SDL_Surface * surface = TTF_RenderText_Solid(font, text.c_str(), Color::BLACK);
 		*width = surface->w;
 		*height = surface->h;
 

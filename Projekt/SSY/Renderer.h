@@ -41,22 +41,23 @@ public:
 	void drawPicture(const SDL_Rect* dstRect, const SDL_Rect* srcRect, SDL_Surface* surface);
 
 	// Funktionen zum Zeichnen von Texturen
-	void drawTexture(const SDL_Rect* rect, SDL_Texture* texture);
-	void drawTexture(const SDL_Rect* dstRect, const SDL_Rect* srcRect, SDL_Texture* texture);
+	void drawTexture(const SDL_Rect* rect, SDL_Texture* texture, Uint8 alpha = 255);
+	void drawTexture(const SDL_Rect* dstRect, const SDL_Rect* srcRect, SDL_Texture* texture, Uint8 alpha = 255);
 
 	// Funktionen zum Zeichnen des Hintergrundes
 	void drawBackground(SDL_Color color);
-	void drawBackground(SDL_Texture* texture);
+	void drawBackground(SDL_Texture* texture, Uint8 alpha = 255);
 	void drawBackground(SDL_Surface* surface);
 	void drawBackground(const SDL_Rect* rect, SDL_Color color);
 	void drawBackground(const SDL_Rect* rect, SDL_Surface* surface);
-	void drawBackground(const SDL_Rect* rect, SDL_Texture* texture);
+	void drawBackground(const SDL_Rect* rect, SDL_Texture* texture, Uint8 alpha = 255);
 	void drawBackground(const SDL_Rect* dstRect, const SDL_Rect* srcRect, SDL_Surface* surface);
 
 	// Nötige Renderfunktionen
 	SDL_Texture* getTexture(SDL_Surface* surface);
 	SDL_Texture* getTexture(const char * path);
 	void presentRenderer();
+	void setRenderBlendMode(SDL_BlendMode mode);
 private:
 	SDL_Renderer * renderer;
 };
