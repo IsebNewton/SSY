@@ -21,7 +21,7 @@ protected:
 	ObjectControl(int width, int height);
 	ObjectControl(int posX, int posY, int width, int height);
 
-	int(*onAction)(void*) = [] (void*) -> int { return 0; };
+	int (*onAction)(void*) = [] (void*) -> int { return 0; };
 	bool visible;
 	bool valid;
 	State state;

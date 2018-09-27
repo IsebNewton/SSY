@@ -12,11 +12,11 @@ void Button::initialize()
 	this->borderSize = 2;
 	area.w += 2 * borderSize;
 	area.h += 2 * borderSize;
-	this->foreColor = Color::AQUA;
-	this->backColor = Color::GRAY;
-	this->borderColor = Color::SILVER;
-	this->hoveredColor = Color::LIGHT_GRAY;
-	this->clickedColor = Color::DARK_GRAY;
+	this->foreColor = Color::BLACK;
+	this->backColor = Color::fromARGB(140, 97, 6, 128);
+	this->borderColor = Color::fromRGB(134, 61, 10);
+	this->hoveredColor = Color::fromARGB(247, 190, 74, 128);
+	this->clickedColor = Color::fromARGB(134, 61, 10, 64);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
