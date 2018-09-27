@@ -21,7 +21,7 @@ protected:
 	ObjectControl(int width, int height);
 	ObjectControl(int posX, int posY, int width, int height);
 
-	void (*onAction)(void) = []() {};
+	int(*onAction)(void*) = [] (void*) -> int { return 0; };
 	bool visible;
 	bool valid;
 	State state;
@@ -44,7 +44,7 @@ public:
 	void setWidth(int width);
 	void setHeight(int height);
 	void setVisible(bool visible);
-	void setOnAction(void(*function)(void));
+	void setOnAction(int(*function)(void*));
 	void setBackColor(SDL_Color color);
 	void setBackground(SDL_Texture* background);
 
@@ -80,7 +80,7 @@ public:
 	*/
 	virtual void onClick() override
 	{
-		onAction();
+		SDL_Thread* thread = SDL_CreateThread(onAction, "Click", NULL);
 	};
 
 	/**

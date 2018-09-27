@@ -88,7 +88,7 @@ void ObjectControl::setVisible(bool visible)
 	this->invalidate();
 }
 
-void ObjectControl::setOnAction(void(*function)(void))
+void ObjectControl::setOnAction(int(*function)(void*))
 {
 	this->onAction = function;
 }
