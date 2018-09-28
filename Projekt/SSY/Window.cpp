@@ -123,7 +123,7 @@ void Window::addObjects(ObjectControl *object ...)
 	ObjectControl* control = object;
 
 	va_list objects;
-	va_start(objects, control);
+	va_start(objects, object);
 
 	while (control != NULL)
 	{
