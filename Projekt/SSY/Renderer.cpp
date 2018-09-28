@@ -40,32 +40,35 @@ void Renderer::drawText(const char* text, const SDL_Rect * rect, Font * font, SD
 	if (font == NULL || font->getFont() == NULL)
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Schrift zum Rendern darf nicht NULL sein.");
 
-	SDL_Surface * surface = TTF_RenderText_Solid(font->getFont(), text, color);
-	SDL_Texture * texture = GraphicFactory::loadTextureFromSurface(renderer, surface);
-	SDL_SetTextureAlphaMod(texture, color.a);
-
-	// Damit der Text nicht gezogen wird und nicht verpixelt aussieht
-	SDL_Rect textRect = SDL_Rect{ rect->x, rect->y, rect->w, rect->h };
-	int textWidth = 0;
-	int textHeight = 0;
-	SDL_QueryTexture(texture, NULL, NULL, &textWidth, &textHeight);
-	if (rect->w > textWidth)
+	if (strlen(text) > 0)
 	{
-		// Wenn der eigenltiche Text kleiner ist soll dieser mittig platziert werden
-		textRect.x = (int)(rect->x + (rect->w - textWidth) / 2);	
-		textRect.w = textWidth;
-	}
-	if (rect->h > textHeight)
-	{
-		// Wenn der eigenltiche Text kleiner ist soll dieser mittig platziert werden
-		textRect.y = (int)(rect->y + (rect->h - textHeight) / 2);
-		textRect.h = textHeight;
-	}
+		SDL_Surface * surface = TTF_RenderText_Solid(font->getFont(), text, color);
+		SDL_Texture * texture = GraphicFactory::loadTextureFromSurface(renderer, surface);
+		SDL_SetTextureAlphaMod(texture, color.a);
 
-	SDL_RenderCopy(renderer, texture, NULL, &textRect);
+		// Damit der Text nicht gezogen wird und nicht verpixelt aussieht
+		SDL_Rect textRect = SDL_Rect{ rect->x, rect->y, rect->w, rect->h };
+		int textWidth = 0;
+		int textHeight = 0;
+		SDL_QueryTexture(texture, NULL, NULL, &textWidth, &textHeight);
+		if (rect->w > textWidth)
+		{
+			// Wenn der eigenltiche Text kleiner ist soll dieser mittig platziert werden
+			textRect.x = (int)(rect->x + (rect->w - textWidth) / 2);	
+			textRect.w = textWidth;
+		}
+		if (rect->h > textHeight)
+		{
+			// Wenn der eigenltiche Text kleiner ist soll dieser mittig platziert werden
+			textRect.y = (int)(rect->y + (rect->h - textHeight) / 2);
+			textRect.h = textHeight;
+		}
 
-	SDL_FreeSurface(surface);
-	SDL_DestroyTexture(texture);
+		SDL_RenderCopy(renderer, texture, NULL, &textRect);
+
+		SDL_FreeSurface(surface);
+		SDL_DestroyTexture(texture);
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
