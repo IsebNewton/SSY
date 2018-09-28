@@ -26,7 +26,8 @@ ObjectControl::ObjectControl(int posX, int posY, int width, int height)
 
 ObjectControl::~ObjectControl()
 {
-	// TODO:
+	if (background != NULL)
+		SDL_DestroyTexture(background);
 }
 
 void ObjectControl::invalidate()
