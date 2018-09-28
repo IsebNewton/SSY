@@ -1,6 +1,7 @@
 #include "Core.h"
 #include <SDL.h>
 #include <iostream>
+#include "Color.h"
 
 bool Core::quit = false;
 
@@ -27,19 +28,44 @@ void Core::startGame()
 		throw SDLError();
 	}
 
+	// TODO: Eigenschaften des Spiels wie FPS sollen mit einer bestimmten Taste oder Tastenkombination
+	// im Window Objectkt angezeigt werden
+
+	int fps = 40;	// TODO: FPS aus der Konfig lesen
+	int delay = 1000 / fps;
+	Label* frameLabel = new Label("FPS: ");
+	frameLabel->setForeColor(Color::WHITE);
+	window->addObject(frameLabel);
+
 	eventHandler = EventHandler();
 	while (!quit)
 	{
-		long frameTime = SDL_GetTicks();
+		int count = 0;
+		long time = SDL_GetTicks();
+		while (!quit)
+		{
+			long frameTime = SDL_GetTicks();
 
-		eventHandler.onHandleEvents(window->getObjects());
+			eventHandler.onHandleEvents(window->getObjects());
 
-		window->onRender();
+			window->onRender();
 
-		// Delay setzen damit die FPS runtergesetzt werden.
-		if (SDL_GetTicks() - frameTime < 16) {
-			SDL_Delay(16 - (SDL_GetTicks() - frameTime));
+			// Delay setzen damit die FPS runtergesetzt werden.
+			if (SDL_GetTicks() - frameTime < delay) {
+				SDL_Delay(delay - (SDL_GetTicks() - frameTime));
+			}
+			if (SDL_GetTicks() - time < 1000)
+			{
+				count++;
+			}
+			else
+			{
+				std::string msg = "FPS: " + std::to_string(count);
+				frameLabel->setText(msg);
+				break;
+			}
 		}
+		count = 0;
 	}
 		
 	delete window;
