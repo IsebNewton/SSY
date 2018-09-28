@@ -101,7 +101,7 @@ void Window::initWindow()
 		return 0;
 	});
 
-	menu->addObjects(startButton, optButton, exitButton, NULL);
+	menu->addElements(startButton, optButton, exitButton, NULL);
 	this->setMenu(menu);
 }
 
@@ -150,7 +150,7 @@ void Window::setMenu(Menu * menu)
 
 		if (menu != NULL)
 		{
-			std::list<GUIElement*> list = menu->getObjects();
+			std::list<GUIElement*> list = menu->getElements();
 			for (std::list<GUIElement*>::iterator it = list.begin();
 				it != list.end(); ++it)
 			{

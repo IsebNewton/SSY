@@ -9,7 +9,7 @@
 class Menu
 {
 private:
-	std::list<GUIElement*> objects;
+	std::list<GUIElement*> elements;
 	bool visible;
 	bool valid;
 	SDL_Rect area;
@@ -34,16 +34,16 @@ public:
 	Funktion macht das Element ungültig und führt somit zum neuen Rendern.
 	*/
 	void invalidate();
-	void addObject(GUIElement* object);
+	void addElement(GUIElement* element);
 
 	/**
 	Funktion fügt GUIElemente dem Menü hinzu.
 	WICHTIG: Man muss als letztes Argument NULL übergeben da sonst eine Speicherzugriffsverletzung stattfindet.
 
-	@params object Liste von GUIElementen welche hinzugefügt werden sollen unnd am Ende NULL 
+	@params element Liste von GUIElementen welche hinzugefügt werden sollen unnd am Ende NULL 
 	*/
-	void addObjects(GUIElement* object...);
-	void removeObject(GUIElement* object);
+	void addElements(GUIElement* element...);
+	void removeElement(GUIElement* element);
 	void onPaint(Renderer* renderer);
 
 	// Getter und Setter
@@ -67,7 +67,7 @@ public:
 	bool isValid();
 	SDL_Color getBackgroundColor();
 	std::string getBackground();
-	std::list<GUIElement*> getObjects();
+	std::list<GUIElement*> getElements();
 	int getBorderSize();
 	SDL_Color getBorderColor();
 	std::string getCaption();

@@ -30,7 +30,10 @@ Menu::Menu(int posX, int posY, int width, int height)
 
 Menu::~Menu()
 {
-	objects.clear();
+	while (!elements.empty())
+	{
+		removeElement(elements.back());
+	}
 	if (this->backgroundTexture != NULL)
 		SDL_DestroyTexture(this->backgroundTexture);
 }
@@ -40,36 +43,37 @@ void Menu::invalidate()
 	this->valid = false;
 }
 
-void Menu::addObject(GUIElement * object)
+void Menu::addElement(GUIElement * element)
 {
-	if (object != NULL && !(std::find(objects.begin(), objects.end(), object) != objects.end()))
+	if (element != NULL && !(std::find(elements.begin(), elements.end(), element) != elements.end()))
 	{
-		object->setX(object->getX() + this->getX());
-		object->setY(object->getY() + this->getY());
-		this->objects.insert(objects.end(), object);
+		element->setX(element->getX() + this->getX());
+		element->setY(element->getY() + this->getY());
+		this->elements.insert(elements.end(), element);
 	}
 }
 
-void Menu::addObjects(GUIElement* object...)
+void Menu::addElements(GUIElement* element...)
 {
-	GUIElement* element = object;
+	GUIElement* newElement = element;
 
-	va_list objects;
-	va_start(objects, object);
+	va_list elements;
+	va_start(elements, element);
 
-	while (element != NULL)
+	while (newElement != NULL)
 	{
-		this->addObject(element);
-		element = va_arg(objects, GUIElement*);
+		this->addElement(newElement);
+		newElement = va_arg(elements, GUIElement*);
 	}
-	va_end(objects);
+	va_end(elements);
 }
 
-void Menu::removeObject(GUIElement * object)
+void Menu::removeElement(GUIElement * element)
 {
-	if (object != NULL)
+	if (element != NULL)
 	{
-		objects.remove_if([object](GUIElement* value) { return (value == object); });
+		elements.remove_if([element](GUIElement* value) { return (value == element); });
+		delete element;
 	}
 }
 
@@ -139,7 +143,7 @@ void Menu::setHeight(int height)
 void Menu::setVisible(bool visible)
 {
 	this->visible = visible;
-	for (std::list<GUIElement*>::iterator it = objects.begin(); it != objects.end(); ++it)
+	for (std::list<GUIElement*>::iterator it = elements.begin(); it != elements.end(); ++it)
 	{
 		(*it)->setVisible(visible);
 	}
@@ -175,7 +179,7 @@ void Menu::setCaption(std::string caption)
 		captionLabel = new Label(caption);
 		captionLabel->setWidth(this->getWidth());
 		captionLabel->setHeight(20);
-		this->addObject(captionLabel);
+		this->addElement(captionLabel);
 	}
 	captionLabel->setText(caption);
 }
@@ -224,9 +228,9 @@ std::string Menu::getBackground()
 	return this->background;
 }
 
-std::list<GUIElement*> Menu::getObjects()
+std::list<GUIElement*> Menu::getElements()
 {
-	return objects;
+	return elements;
 }
 
 int Menu::getBorderSize()
