@@ -33,7 +33,7 @@ void Core::startGame()
 
 	int fps = 40;	// TODO: FPS aus der Konfig lesen
 	int delay = 1000 / fps;
-	Label* frameLabel = new Label("FPS: ");
+	Label* frameLabel = new Label();
 	frameLabel->setForeColor(Color::WHITE);
 	window->addObject(frameLabel);
 
