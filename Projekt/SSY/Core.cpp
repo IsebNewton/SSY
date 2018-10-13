@@ -1,6 +1,7 @@
 #include "Core.h"
 #include <SDL.h>
 #include <iostream>
+#include "SoundFactory.h"
 #include "Color.h"
 
 bool Core::quit = false;
@@ -22,6 +23,7 @@ void Core::startGame()
 
 	FontFactory::initTTF();
 	GraphicFactory::initIMG();
+	SoundFactory::initAUDIO();
 
 	if (!window->createWindow())
 	{
@@ -37,6 +39,8 @@ void Core::startGame()
 	frameLabel->setForeColor(Color::WHITE);
 	window->addObject(frameLabel);
 
+	SoundFactory::playMusic("Noddinagushpa.mp3", -1);
+
 	eventHandler = EventHandler();
 	while (!quit)
 	{
@@ -49,6 +53,17 @@ void Core::startGame()
 			eventHandler.onHandleEvents(window->getObjects());
 
 			window->onRender();
+
+			if (InputWrapper::isPauseNow())
+			{
+				SoundFactory::pauseMusic();
+				SoundFactory::pauseSound();
+			}
+			if (InputWrapper::isResumeNow())
+			{
+				SoundFactory::resumeMusic();
+				SoundFactory::resumeSound();
+			}
 
 			// Delay setzen damit die FPS runtergesetzt werden.
 			if (SDL_GetTicks() - frameTime < delay) {
@@ -71,6 +86,7 @@ void Core::startGame()
 	delete window;
 	FontFactory::quit();
 	GraphicFactory::quit();
+	SoundFactory::quit();
 	SDL_Quit();
 }
 
