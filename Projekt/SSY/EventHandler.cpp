@@ -8,7 +8,7 @@ void EventHandler::onHandleEvents(std::list<ObjectControl*> controls)
 {
 	InputWrapper::updateEvents();
 
-	if (InputWrapper::getQuit())
+	if (InputWrapper::isQuit())
 	{
 		Core::quit = true;
 	}

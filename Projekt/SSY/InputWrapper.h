@@ -8,6 +8,14 @@ enum class ButtonState
 	DOWN_NOW
 };
 
+struct PauseState
+{
+	bool pauseNow = false;
+	bool pause = false;
+	bool resumeNow = false;
+	bool resume = false;
+};
+
 class InputWrapper
 {
 public:
@@ -40,7 +48,11 @@ public:
 	static ButtonState getKeyState(int key);
 
 	//Sonder-Events:
-	static bool getQuit();
+	static bool isQuit();
+	static bool isPause();
+	static bool isPauseNow();
+	static bool isResumeNow();
+	static bool isResume();
 
 private:
 	static ButtonState keyStates[285];
@@ -49,6 +61,7 @@ private:
 	static int mouseY;
 
 	static bool quit;
+	static PauseState pauseState;
 
 	static bool initialized;
 };

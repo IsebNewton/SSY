@@ -9,6 +9,7 @@ ButtonState InputWrapper::mouseStates[3];
 int InputWrapper::mouseX;
 int InputWrapper::mouseY;
 bool InputWrapper::quit;
+PauseState InputWrapper::pauseState;
 
 void InputWrapper::initialize()
 {
@@ -64,6 +65,18 @@ void InputWrapper::updateEvents()
 		}
 	}
 
+	// PauseState updaten
+	if (pauseState.pauseNow)
+	{
+		pauseState.pauseNow = false;
+		pauseState.pause = true;
+	}
+	if (pauseState.resumeNow)
+	{
+		pauseState.resumeNow = false;
+		pauseState.resume = true;
+	}
+
 	SDL_Event event;
 
 	while (SDL_PollEvent(&event))
@@ -72,6 +85,19 @@ void InputWrapper::updateEvents()
 		{
 		case SDL_QUIT:
 			quit = true;
+			break;
+		case SDL_WINDOWEVENT:
+			switch (event.window.event)
+			{
+			case SDL_WINDOWEVENT_MINIMIZED:
+				pauseState.pauseNow = true;
+				pauseState.resume = false;
+				break;
+			case SDL_WINDOWEVENT_RESTORED:
+				pauseState.resumeNow = true;
+				pauseState.pause = false;
+				break;
+			}
 			break;
 		case SDL_KEYDOWN:
 			keyStates[event.key.keysym.scancode] = ButtonState::DOWN_NOW;
@@ -155,7 +181,27 @@ ButtonState InputWrapper::getKeyState(int key)
 	return (keyStates[key]);
 }
 
-bool InputWrapper::getQuit()
+bool InputWrapper::isQuit()
 {
 	return quit;
+}
+
+bool InputWrapper::isPause()
+{
+	return pauseState.pause;
+}
+
+bool InputWrapper::isPauseNow()
+{
+	return pauseState.pauseNow;
+}
+
+bool InputWrapper::isResumeNow()
+{
+	return pauseState.resumeNow;
+}
+
+bool InputWrapper::isResume()
+{
+	return pauseState.resume;
 }
