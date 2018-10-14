@@ -1,7 +1,7 @@
 #include "Map.h"
 #include "GraphicFactory.h"
 
-Map::Map(const char * file)
+Map::Map(Screen screen, const char * file)
 {
 	mapSurface = GraphicFactory::loadPicture(file);
 	if (mapSurface == NULL)
@@ -13,7 +13,7 @@ Map::Map(const char * file)
 		width = mapSurface->w;
 		height = mapSurface->h;
 		pixels = (Uint32 *)mapSurface->pixels;
-		createMap();
+		createMap(screen);
 	}
 }
 
@@ -24,7 +24,7 @@ Map::~Map()
 	delete[] map;
 }
 
-void Map::createMap()
+void Map::createMap(Screen screen)
 {
 	map = new Terrain**[height];
 	for (int y = 0; y < height; y++)
@@ -37,6 +37,7 @@ void Map::createMap()
 
 			Terrain* mapObject = getTerrainFrom32(getPixel32(pixel));
 			map[y][x] = mapObject;
+			screen.addObject(mapObject);
 		}
 	}
 }
