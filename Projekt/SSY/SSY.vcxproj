@@ -172,10 +172,12 @@
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="GraphicFactory.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="ObjectControl.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="SoundFactory.cpp" />
+    <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -192,10 +194,12 @@
     <ClInclude Include="GUILabeled.h" />
     <ClInclude Include="InputWrapper.h" />
     <ClInclude Include="Label.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="ObjectControl.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="SoundFactory.h" />
+    <ClInclude Include="Terrain.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
