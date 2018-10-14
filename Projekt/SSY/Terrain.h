@@ -1,5 +1,7 @@
 #pragma once
-class Terrain
+#include "ObjectControl.h"
+
+class Terrain : public ObjectControl
 {
 public:
 	Terrain();
