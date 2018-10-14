@@ -5,6 +5,8 @@
 #include "Menu.h"
 #include "Map.h"
 
+class Map;
+
 class Screen
 {
 private:

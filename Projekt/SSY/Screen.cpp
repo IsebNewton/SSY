@@ -7,7 +7,8 @@ Screen::Screen()
 
 Screen::Screen(const char * menu)
 {
-	map = new Map(*this, menu);
+	map = new Map(menu);
+	map->createMap(*this);
 }
 
 Screen::~Screen()

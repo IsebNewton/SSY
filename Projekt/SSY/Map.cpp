@@ -1,7 +1,7 @@
 #include "Map.h"
 #include "GraphicFactory.h"
 
-Map::Map(Screen screen, const char * file)
+Map::Map(const char * file)
 {
 	mapSurface = GraphicFactory::loadPicture(file);
 	if (mapSurface == NULL)
@@ -13,7 +13,6 @@ Map::Map(Screen screen, const char * file)
 		width = mapSurface->w;
 		height = mapSurface->h;
 		pixels = (Uint32 *)mapSurface->pixels;
-		createMap(screen);
 	}
 }
 

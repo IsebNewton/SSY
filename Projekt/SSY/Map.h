@@ -3,6 +3,8 @@
 #include "Color.h"
 #include "Screen.h"
 
+class Screen;
+
 class Map
 {
 private:
@@ -13,13 +15,14 @@ private:
 	Uint32 * pixels;
 
 	Terrain *** map;
-	void createMap(Screen screen);
 	Terrain* getTerrainFrom32(Uint32 pixel);
 	Uint32 getPixel32(Uint8* pixel);
 
 public:
-	Map(Screen screen, const char * file);
+	Map(const char * file);
 	~Map();
+
+	void createMap(Screen screen);
 
 	int getWidth();
 	int getHeight();
