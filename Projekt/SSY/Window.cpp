@@ -40,6 +40,8 @@ void Window::onRender()
 		renderer->drawBackground(Color::WHITE);
 	}
 
+	screen->drawMap(renderer);
+
 	// Menüs rendern
 	std::list<Menu*> menuList = screen->getMenus();
 	for (std::list<Menu*>::iterator it = menuList.begin();
@@ -91,7 +93,6 @@ void Window::initWindow()
 
 
 	Font* font = new Font("ITCBLKAD", 32);
-
 	Button* startButton = new Button("Single Player");
 	startButton->setWidth(buttonWidth);
 	startButton->setHeight(buttonHeight);

@@ -13,52 +13,56 @@ Map::Map(const char * file)
 		width = mapSurface->w;
 		height = mapSurface->h;
 		pixels = (Uint32 *)mapSurface->pixels;
+		map = new Terrain*[height];
+		for (int i = 0; i < height; i++)
+		{
+			map[i] = new Terrain[width];
+		}
 	}
 }
 
 Map::~Map()
 {
 	for (int i = 0; i < height; i++)
+	{
 		delete[] map[i];
+	}
 	delete[] map;
 }
 
-void Map::createMap(Screen screen)
+void Map::createMap()
 {
-	map = new Terrain**[height];
 	for (int y = 0; y < height; y++)
 	{
-		map[y] = new Terrain*[width];
 		for (int x = 0; x < width; x++)
 		{ 
 			int bpp = mapSurface->format->BytesPerPixel;
 			Uint8* pixel = (Uint8 *)pixels + y * mapSurface->pitch + x * bpp;
 
-			Terrain* mapObject = getTerrainFrom32(getPixel32(pixel));
+			Terrain mapObject = getTerrainFrom32(getPixel32(pixel), x, y);
 			map[y][x] = mapObject;
-			screen.addObject(mapObject);
 		}
 	}
 }
 
-Terrain * Map::getTerrainFrom32(Uint32 pixel)
+Terrain Map::getTerrainFrom32(Uint32 pixel, int x, int y)
 {
-	Terrain* terrain = NULL;
+	Terrain terrain;
 
 	switch (pixel)
 	{
 	case 0x00ff00:	// Green = Grass
-		//terrain = new Grass();
+		terrain = Terrain(GRASS, BLOCK_SIZE * x, BLOCK_SIZE * y, BLOCK_SIZE);
 		break;
 	case 0x0000ff:	// Blue = Water
-		//terrain = new Water();
+		terrain = Terrain(WATER, BLOCK_SIZE * x, BLOCK_SIZE * y, BLOCK_SIZE);
 		break;
 	case 0x004000:	// Darkgreen = Wood
-		//terrain = new Grass();
+		//terrain = Terrain(GRASS, BLOCK_SIZE * x, BLOCK_SIZE * y, BLOCK_SIZE);
 		//terrain.setInanimate(new Tree());
 		break;
 	case 0xFF8000:	// Orange = Sand
-		//terrain = new Sand();
+		terrain = Terrain(SAND, BLOCK_SIZE * x, BLOCK_SIZE * y, BLOCK_SIZE);
 		break;
 	}
 
@@ -93,6 +97,22 @@ Uint32 Map::getPixel32(Uint8 * pixel)
 	return resultPixel;
 }
 
+SDL_Texture * Map::getTextureFromTerrainType(TerrainType type, Renderer* renderer)
+{
+	switch (type)
+	{
+	case GRASS:
+		return renderer->getTexture("Grass.jpg");
+		break;
+	case WATER:
+		return renderer->getTexture("Water.jpg");
+		break;
+	case SAND:
+		return renderer->getTexture("Sand.jpg");
+		break;
+	}
+}
+
 int Map::getWidth()
 {
 	return width;
@@ -105,5 +125,17 @@ int Map::getHeight()
 
 Terrain * Map::getObject(int x, int y)
 {
-	return map[x][y];
+	return &map[x][y];
+}
+
+void Map::drawMap(Renderer* renderer)
+{
+	for (int y = 0; y < height; y++)
+	{
+		for (int x = 0; x < width; x++)
+		{
+			TerrainType type = map[y][x].getType();
+			renderer->drawTexture(&(map[y][x].getArea()), getTextureFromTerrainType(type, renderer));
+		}
+	}
 }

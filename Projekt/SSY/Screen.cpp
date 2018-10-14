@@ -8,7 +8,7 @@ Screen::Screen()
 Screen::Screen(const char * menu)
 {
 	map = new Map(menu);
-	map->createMap(*this);
+	map->createMap();
 }
 
 Screen::~Screen()
@@ -87,6 +87,14 @@ void Screen::addMenu(std::string name, Menu * menu)
 	else
 	{
 		SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "Menü %s wurde schon in die Map eingefügt", name);
+	}
+}
+
+void Screen::drawMap(Renderer * renderer)
+{
+	if (hasMap())
+	{
+		map->drawMap(renderer);
 	}
 }
 

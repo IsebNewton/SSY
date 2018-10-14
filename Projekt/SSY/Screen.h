@@ -35,6 +35,8 @@ public:
 
 	void addMenu(std::string name, Menu* menu);
 
+	void drawMap(Renderer* renderer);
+
 	void setBackground(SDL_Texture* background);
 	SDL_Texture* getBackground();
 
