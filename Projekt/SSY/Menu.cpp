@@ -30,10 +30,7 @@ Menu::Menu(int posX, int posY, int width, int height)
 
 Menu::~Menu()
 {
-	while (!elements.empty())
-	{
-		removeElement(elements.back());
-	}
+	elements.clear();
 	if (this->backgroundTexture != NULL)
 		SDL_DestroyTexture(this->backgroundTexture);
 }

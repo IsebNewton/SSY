@@ -37,7 +37,7 @@ void Core::startGame()
 	int delay = 1000 / fps;
 	Label* frameLabel = new Label();
 	frameLabel->setForeColor(Color::WHITE);
-	window->addObject(frameLabel);
+	window->getScreen()->addObject(frameLabel);
 
 	SoundFactory::playMusic("Noddinagushpa.mp3", -1);
 
@@ -50,7 +50,7 @@ void Core::startGame()
 		{
 			long frameTime = SDL_GetTicks();
 
-			eventHandler.onHandleEvents(window->getObjects());
+			eventHandler.onHandleEvents(window->getScreen()->getObjects());
 
 			window->onRender();
 

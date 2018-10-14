@@ -30,12 +30,30 @@ bool Window::createWindow()
 
 void Window::onRender()
 {
-	renderer->drawBackground(background);
-	if (activeMenu != NULL && activeMenu->isVisible())
-		activeMenu->onPaint(renderer);
+	// Hintergrund zeichnen
+	if (screen->getBackground() != NULL)
+	{
+		renderer->drawBackground(screen->getBackground());
+	}
+	else
+	{
+		renderer->drawBackground(Color::WHITE);
+	}
 
-	for (std::list<ObjectControl*>::iterator it = this->objects.begin();
-		it != this->objects.end(); ++it)
+	// Menüs rendern
+	std::list<Menu*> menuList = screen->getMenus();
+	for (std::list<Menu*>::iterator it = menuList.begin();
+		it != menuList.end(); ++it)
+	{
+		if ((*it)->isVisible())
+		{
+			(*it)->onPaint(renderer);
+		}
+	}
+
+	std::list<ObjectControl*> objectList = screen->getObjects();
+	for (std::list<ObjectControl*>::iterator it = objectList.begin();
+		it != objectList.end(); ++it)
 	{
 		if ((*it)->isVisible())
 		{
@@ -48,10 +66,8 @@ void Window::onRender()
 
 void Window::initWindow()
 {
-	if (background == NULL)
-	{
-		background = renderer->getTexture("StartWallpaper.jpg");
-	}
+	screen = new Screen();
+	screen->setBackground(renderer->getTexture("StartWallpaper.jpg"));
 
 	// TODO: Menü seperat erstellen und hier nur setzen
 	int width = 0;
@@ -102,7 +118,12 @@ void Window::initWindow()
 	});
 
 	menu->addElements(startButton, optButton, exitButton, NULL);
-	this->setMenu(menu);
+	screen->addMenu("Hauptmenü", menu);
+}
+
+Screen * Window::getScreen()
+{
+	return screen;
 }
 
 SDL_Window* Window::getWindow()
@@ -110,75 +131,9 @@ SDL_Window* Window::getWindow()
 	return window;
 }
 
-void Window::addObject(ObjectControl * object)
-{
-	if (object != NULL && !(std::find(objects.begin(), objects.end(), object) != objects.end()))
-	{
-		this->objects.push_back(object);
-	}
-}
-
-void Window::addObjects(ObjectControl *object ...)
-{
-	ObjectControl* control = object;
-
-	va_list objects;
-	va_start(objects, object);
-
-	while (control != NULL)
-	{
-		this->addObject(control);
-		control = va_arg(objects, ObjectControl*);
-	}
-
-	va_end(objects);
-}
-
-void Window::removeObject(ObjectControl * object)
-{
-	if (object != NULL)
-	{
-		objects.remove_if([object](ObjectControl* value) { return (value == object); });
-	}
-}
-
-void Window::setMenu(Menu * menu)
-{
-	if (activeMenu != menu)
-	{
-		delete activeMenu; // Speicher wieder freigeben wenn es nicht das gleiche Menü ist
-
-		if (menu != NULL)
-		{
-			std::list<GUIElement*> list = menu->getElements();
-			for (std::list<GUIElement*>::iterator it = list.begin();
-				it != list.end(); ++it)
-			{
-				this->addObject(*it);
-			}
-		}
-	}
-	this->activeMenu = menu;
-}
-
-std::list<ObjectControl*> Window::getObjects()
-{
-	return this->objects;
-}
-
-Menu * Window::getMenu()
-{
-	return this->activeMenu;
-}
-
 Window::~Window()
 {
-	if (activeMenu != NULL)
-	{
-		delete activeMenu;
-	}
-	objects.clear();
+	delete screen;
 	delete renderer;
-	SDL_DestroyTexture(background);
 	SDL_DestroyWindow(window);
 }
