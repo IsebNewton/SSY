@@ -94,6 +94,20 @@ void Screen::drawMap(Renderer * renderer)
 {
 	if (hasMap())
 	{
+		// TODO: Provisorisch die MiniMap positionieren
+		SDL_Rect rect;
+		rect.x = 0;
+		rect.y = 880;
+		rect.w = 200;
+		rect.h = 200;
+		map->setMiniMapRect(rect);
+		if (!map->isInitialized())
+		{
+			map->initTextures(renderer);
+			map->startMiniMapUpdater(renderer);
+		}
+
+		map->move();
 		map->drawMap(renderer);
 	}
 }
