@@ -89,9 +89,8 @@ void ObjectControl::setVisible(bool visible)
 	this->invalidate();
 }
 
-void ObjectControl::setOnAction(int(*function)(void*), bool inThread)
+void ObjectControl::setOnAction(int(*function)(void*))
 {
-	this->onActionThread = inThread;
 	this->onAction = function;
 }
 
