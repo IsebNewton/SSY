@@ -110,6 +110,11 @@ void Window::initWindow()
 	startButton->setX(menu->getWidth() / 5);
 	startButton->setY(menu->getHeight() / 9 * 2);
 	startButton->setFont(font);
+	static Window* that = this;
+	startButton->setOnAction([](void*) -> int {
+		that->setScreen(new Screen("Map.bmp"));
+		return 0;
+	});
 
 	Button* optButton = new Button("Options");
 	optButton->setWidth(buttonWidth);
