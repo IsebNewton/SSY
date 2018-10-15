@@ -35,9 +35,6 @@ void Core::startGame()
 
 	int fps = 40;	// TODO: FPS aus der Konfig lesen
 	int delay = 1000 / fps;
-	Label* frameLabel = new Label();
-	frameLabel->setForeColor(Color::WHITE);
-	window->getScreen()->addObject(frameLabel);
 
 	SoundFactory::playMusic("Noddinagushpa.mp3", -1);
 
@@ -51,6 +48,10 @@ void Core::startGame()
 			long frameTime = SDL_GetTicks();
 
 			eventHandler.onHandleEvents(window->getScreen()->getObjects());
+			if (InputWrapper::isKeyDownNow(SDL_SCANCODE_F4))
+			{
+				window->frameLabel->setVisible(!window->frameLabel->isVisible());
+			}
 
 			window->onRender();
 
@@ -76,7 +77,7 @@ void Core::startGame()
 			else
 			{
 				std::string msg = "FPS: " + std::to_string(count);
-				frameLabel->setText(msg);
+				window->frameLabel->setText(msg);
 				break;
 			}
 		}

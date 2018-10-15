@@ -21,9 +21,13 @@ bool Window::createWindow()
 	{
 		ret = false;
 	}
-	renderer = new Renderer(window);
+	else
+	{
+		SDL_SetWindowGrab(window, SDL_TRUE);
+		renderer = new Renderer(window);
 
-	initWindow();
+		initWindow();
+	}
 
 	return ret;
 }
@@ -62,12 +66,19 @@ void Window::onRender()
 			(*it)->onPaint(renderer);
 		}
 	}
+	
+	if (frameLabel->isVisible())
+	{
+		frameLabel->onPaint(renderer);
+	}
 
 	renderer->presentRenderer();
 }
 
 void Window::initWindow()
 {
+	frameLabel = new Label();
+	frameLabel->setForeColor(Color::WHITE);
 	screen = new Screen();
 	screen->setBackground(renderer->getTexture("StartWallpaper.jpg"));
 
@@ -120,6 +131,13 @@ void Window::initWindow()
 
 	menu->addElements(startButton, optButton, exitButton, NULL);
 	screen->addMenu("Hauptmenü", menu);
+}
+
+void Window::setScreen(Screen * screen)
+{
+	Screen* temp = this->screen;
+	this->screen = screen;
+	delete temp;
 }
 
 Screen * Window::getScreen()

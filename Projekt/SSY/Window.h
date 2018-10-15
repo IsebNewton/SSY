@@ -20,10 +20,12 @@ private:
 	void initWindow();
 
 public:
+	Label * frameLabel = nullptr;
 	Window();
 	bool createWindow();
 	void onRender();
 
+	void setScreen(Screen* screen);
 	Screen* getScreen();
 	SDL_Window* getWindow();
 
