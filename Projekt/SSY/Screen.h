@@ -44,5 +44,6 @@ public:
 	Menu* getMenu(std::string name);
 	std::list<Menu*> getMenus();
 	bool hasMap();
+	Map* getMap();
 };
 

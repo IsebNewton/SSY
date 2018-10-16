@@ -127,7 +127,7 @@ int Map::updateMiniMap(void *ptr)
 			for (int x = 0; x < width; x++)
 			{
 				Terrain* terrain = that->getObject(x, y);
-				Uint32 pixel;
+				Uint32 pixel = 0xFFFFFF;
 				switch (terrain->getType())
 				{
 				case GRASS:
@@ -188,6 +188,15 @@ void Map::move()
 	{
 		setViewPort(viewArea.x - move, viewArea.y);
 	}
+}
+
+void Map::miniMapClick()
+{
+	float blockSizeMapX = (float)miniMapRect.w / width;
+	float blockSizeMapY = (float)miniMapRect.h / height;
+	int x = ceil((InputWrapper::getMouseX() - miniMapRect.x) / blockSizeMapX) * BLOCK_SIZE;
+	int y = ceil((InputWrapper::getMouseY() - miniMapRect.y) / blockSizeMapY) * BLOCK_SIZE;
+	setViewPort(x, y);
 }
 
 void Map::setPixel(SDL_Surface * surface, int x, int y, Uint32 pixel)
@@ -268,6 +277,11 @@ SDL_Rect Map::getView()
 SDL_Texture * Map::getMiniMap()
 {
 	return miniMap;
+}
+
+SDL_Rect Map::getMiniMapRect()
+{
+	return miniMapRect;
 }
 
 Terrain Map::getTerrainFrom32(Uint32 pixel, int x, int y)

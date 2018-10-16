@@ -146,3 +146,8 @@ bool Screen::hasMap()
 {
 	return map != nullptr;
 }
+
+Map * Screen::getMap()
+{
+	return map;
+}

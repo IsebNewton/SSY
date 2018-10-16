@@ -61,6 +61,7 @@ public:
 	void initTextures(Renderer* renderer);
 	void startMiniMapUpdater(Renderer* renderer);
 	void move();
+	void miniMapClick();
 
 	static void setPixel(SDL_Surface* surface, int x, int y, Uint32 pixel);
 
@@ -71,6 +72,7 @@ public:
 
 	SDL_Rect getView();
 	SDL_Texture* getMiniMap();
+	SDL_Rect getMiniMapRect();
 	int getWidth();
 	int getHeight();
 	Terrain* getObject(int x, int y);

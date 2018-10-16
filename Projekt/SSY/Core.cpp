@@ -47,7 +47,7 @@ void Core::startGame()
 		{
 			long frameTime = SDL_GetTicks();
 
-			eventHandler.onHandleEvents(window->getScreen()->getObjects());
+			eventHandler.onHandleEvents(window);
 			if (InputWrapper::isKeyDownNow(SDL_SCANCODE_F4))
 			{
 				window->frameLabel->setVisible(!window->frameLabel->isVisible());
