@@ -7,9 +7,8 @@
 class Renderer
 {
 public:
-	// Konstruktoren
-	Renderer(SDL_Window* window);
-	~Renderer();
+	static Renderer* getInstance();
+	static void release();
 
 	// Funktionen zum zeichnen von Texten
 	void drawText(const char* text, const SDL_Rect* rect, Font* font);
@@ -58,7 +57,15 @@ public:
 	SDL_Texture* getTexture(const char * path);
 	void presentRenderer();
 	void setRenderBlendMode(SDL_BlendMode mode);
+	static void setWindow(SDL_Window* window);
+
 private:
+	// Konstruktoren
+	Renderer(SDL_Window* window);
+	~Renderer();
+
 	SDL_Renderer * renderer;
+	static SDL_Window* window;
+	static Renderer* instance;
 };
 

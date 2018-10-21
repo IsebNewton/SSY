@@ -24,7 +24,8 @@ bool Window::createWindow()
 	else
 	{
 		SDL_SetWindowGrab(window, SDL_TRUE);
-		renderer = new Renderer(window);
+		Renderer::setWindow(window);
+		renderer = Renderer::getInstance();
 
 		initWindow();
 	}
@@ -158,6 +159,6 @@ SDL_Window* Window::getWindow()
 Window::~Window()
 {
 	delete screen;
-	delete renderer;
+	Renderer::release();
 	SDL_DestroyWindow(window);
 }

@@ -1,6 +1,9 @@
 #include "Renderer.h"
 #include "Color.h"
 
+Renderer* Renderer::instance = NULL;
+SDL_Window* Renderer::window = NULL;
+
 /**
 Konstruktor erzeugt ein neuen Renderer für das übergebene Fenster.
 
@@ -24,6 +27,24 @@ Löscht den erzeugten Renderer
 Renderer::~Renderer()
 {
 	SDL_DestroyRenderer(renderer);
+}
+
+Renderer * Renderer::getInstance()
+{
+	if (instance == NULL)
+	{
+		instance = new Renderer(window);
+	}
+	return instance;
+}
+
+void Renderer::release()
+{
+	if (instance != NULL)
+	{
+		delete instance;
+	}
+	instance = NULL;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -279,4 +300,9 @@ void Renderer::presentRenderer()
 void Renderer::setRenderBlendMode(SDL_BlendMode mode)
 {
 	SDL_SetRenderDrawBlendMode(renderer, mode);
+}
+
+void Renderer::setWindow(SDL_Window * window)
+{
+	Renderer::window = window;
 }
