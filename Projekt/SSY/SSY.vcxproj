@@ -178,6 +178,7 @@
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="SoundFactory.cpp" />
+    <ClCompile Include="Subject.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -198,9 +199,11 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="ObjectControl.h" />
+    <ClInclude Include="Observer.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="SoundFactory.h" />
+    <ClInclude Include="Subject.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

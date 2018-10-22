@@ -78,6 +78,9 @@
     <ClCompile Include="Screen.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Subject.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -141,6 +144,12 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Screen.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
