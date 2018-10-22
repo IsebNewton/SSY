@@ -10,7 +10,6 @@ class Map
 {
 private:
 	SDL_Rect viewArea;
-	bool viewPortChange;
 	int maxViewPortX;
 	int maxViewPortY;
 	static Renderer* tempRenderer;
@@ -23,6 +22,7 @@ private:
 	SDL_Texture* miniMap = NULL;
 	static SDL_Surface* tempMap;
 	SDL_Rect miniMapRect;
+	SDL_Rect miniMapViewRect;
 	static int updateInterval;
 
 	bool initialized = false;

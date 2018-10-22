@@ -90,14 +90,13 @@ void Map::drawMap(Renderer* renderer)
 	// MiniMap zeichnen
 	renderer->drawTexture(&miniMapRect, miniMap);
 
-	SDL_Rect rect;
-	rect.x = miniMapRect.x;
-	rect.y = miniMapRect.y;
-	rect.x += ceil(((float)miniMapRect.w / width) * (viewArea.x / BLOCK_SIZE));
-	rect.y += ceil(((float)miniMapRect.h / height) * (viewArea.y / BLOCK_SIZE));
-	rect.w = floor(((float)miniMapRect.w / width) * (countX - startX));
-	rect.h = floor(((float)miniMapRect.h / height) * (countY - startY));
-	renderer->drawRectangle(&rect, Color::WHITE);
+	miniMapViewRect.x = miniMapRect.x;
+	miniMapViewRect.y = miniMapRect.y;
+	miniMapViewRect.x += ceil(((float)miniMapRect.w / width) * (viewArea.x / BLOCK_SIZE));
+	miniMapViewRect.y += ceil(((float)miniMapRect.h / height) * (viewArea.y / BLOCK_SIZE));
+	miniMapViewRect.w = floor(((float)miniMapRect.w / width) * (countX - startX));
+	miniMapViewRect.h = floor(((float)miniMapRect.h / height) * (countY - startY));
+	renderer->drawRectangle(&miniMapViewRect, Color::WHITE);
 }
 
 void Map::initTextures(Renderer* renderer)
@@ -194,8 +193,11 @@ void Map::miniMapClick()
 {
 	float blockSizeMapX = (float)miniMapRect.w / width;
 	float blockSizeMapY = (float)miniMapRect.h / height;
-	int x = ceil((InputWrapper::getMouseX() - miniMapRect.x) / blockSizeMapX) * BLOCK_SIZE;
-	int y = ceil((InputWrapper::getMouseY() - miniMapRect.y) / blockSizeMapY) * BLOCK_SIZE;
+	// Mauspostion soll mittig im Rechteck liegen -> hälfte der rechtecks subtrahieren
+	float mousePositionX = InputWrapper::getMouseX() - miniMapRect.x - (float)miniMapViewRect.w / 2;
+	float mousePositionY = InputWrapper::getMouseY() - miniMapRect.y - (float)miniMapViewRect.h / 2;
+	int x = ceil(mousePositionX / blockSizeMapX) * BLOCK_SIZE;
+	int y = ceil(mousePositionY / blockSizeMapY) * BLOCK_SIZE;
 	setViewPort(x, y);
 }
 
@@ -248,15 +250,29 @@ void Map::setMiniMap(SDL_Texture * map)
 
 void Map::setViewPort(int x, int y)
 {
-	if (x >= 0 && x < maxViewPortX)
+	if (x >= 0 && x <= maxViewPortX)
 	{
 		viewArea.x = x;
-		viewPortChange = true;
 	}
-	if (y >= 0 && y < maxViewPortY)
+	else if (x < 0)
+	{
+		viewArea.x = 0;
+	}
+	else if (x > maxViewPortX)
+	{
+		viewArea.x = maxViewPortX;
+	}
+	if (y >= 0 && y <= maxViewPortY)
 	{
 		viewArea.y = y;
-		viewPortChange = true;
+	}
+	else if (y < 0)
+	{
+		viewArea.y = 0;
+	}
+	else if (y > maxViewPortY)
+	{
+		viewArea.y = maxViewPortY;
 	}
 }
 
