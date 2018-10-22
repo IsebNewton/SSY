@@ -1,6 +1,7 @@
 #pragma once
 #include "ObjectControl.h"
 #include "Color.h"
+#include "Subject.h"
 
 enum TerrainType
 {
@@ -11,7 +12,7 @@ enum TerrainType
 	EARTH
 };
 
-class Terrain
+class Terrain : public Subject
 {
 private:
 	TerrainType type;

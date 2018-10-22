@@ -104,7 +104,6 @@ void Screen::drawMap(Renderer * renderer)
 		if (!map->isInitialized())
 		{
 			map->initTextures(renderer);
-			map->startMiniMapUpdater(renderer);
 		}
 
 		map->move();

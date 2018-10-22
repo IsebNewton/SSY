@@ -3,16 +3,16 @@
 #include "Terrain.h"
 #include "Color.h"
 #include "Screen.h"
+#include "Observer.h"
 
 class Screen;
 
-class Map
+class Map : public Observer<Terrain>
 {
 private:
 	SDL_Rect viewArea;
 	int maxViewPortX;
 	int maxViewPortY;
-	static Renderer* tempRenderer;
 
 	// Mapgröße
 	int width;
@@ -20,10 +20,9 @@ private:
 
 	// MiniMap
 	SDL_Texture* miniMap = NULL;
-	static SDL_Surface* tempMap;
+	SDL_Surface* tempMap = NULL;
 	SDL_Rect miniMapRect;
 	SDL_Rect miniMapViewRect;
-	static int updateInterval;
 
 	bool initialized = false;
 
@@ -37,7 +36,7 @@ private:
 	void setMiniMap(SDL_Texture* map);
 
 	// Funktion die als Thread die Minimap updatet
-	static int updateMiniMap(void* ptr);
+	int updateMiniMap(const Terrain& terrain, int x, int y);
 
 	/**
 	Gibt das zugehörige Terrain zum übergebenen Pixel.
@@ -59,7 +58,6 @@ public:
 	void createMap();
 	void drawMap(Renderer* renderer);
 	void initTextures(Renderer* renderer);
-	void startMiniMapUpdater(Renderer* renderer);
 	void move();
 	void miniMapClick();
 
@@ -77,5 +75,10 @@ public:
 	int getHeight();
 	Terrain* getObject(int x, int y);
 	bool isInitialized();
+
+	// Override 
+
+	// Funktion wird aufgerufen wenn sich ein Terrain ändert
+	virtual void onNotify(const Terrain& entity) override;
 };
 

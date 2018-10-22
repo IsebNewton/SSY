@@ -2,10 +2,6 @@
 #include "Map.h"
 #include "GraphicFactory.h"
 
-Renderer* Map::tempRenderer = NULL;
-SDL_Surface* Map::tempMap = NULL;
-int Map::updateInterval = 30;
-
 Map::Map(const char * file)
 {
 	mapSurface = GraphicFactory::loadPicture(file);
@@ -61,9 +57,13 @@ void Map::createMap()
 			Uint8* pixel = (Uint8 *)pixels + y * mapSurface->pitch + x * bpp;
 
 			Terrain mapObject = getTerrainFrom32(getPixel32(pixel), x, y);
+			//mapObject.addObserver(this); // TODO: Konvertierung von Map in Observer<Subject> nicht möglich
 			map[y][x] = mapObject;
 		}
 	}
+
+	// Minimap das erste mal setzen
+	miniMap = Renderer::getInstance()->getTexture(mapSurface);
 }
 
 void Map::drawMap(Renderer* renderer)
@@ -108,64 +108,48 @@ void Map::initTextures(Renderer* renderer)
 	initialized = true;
 }
 
-int Map::updateMiniMap(void *ptr)
+int Map::updateMiniMap(const Terrain& terrain, int x, int y)
 {
-	Map* that = (Map*)ptr;
-	if (that == NULL)
-	{
-		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Fehler beim übertragen von der Map an den Thread.");
-	}
-	SDL_Surface surface = *tempMap;
-	while (that != NULL)
-	{
-		int width = that->getWidth();
-		int height = that->getHeight();
-		int bpp = surface.format->BytesPerPixel;
-		for (int y = 0; y < height; y++)
-		{
-			for (int x = 0; x < width; x++)
-			{
-				Terrain* terrain = that->getObject(x, y);
-				Uint32 pixel = 0xFFFFFF;
-				switch (terrain->getType())
-				{
-				case GRASS:
-					pixel = 0x00FF00;
-					break;
-				case SAND:
-					pixel = 0xFF8000;
-					break;
-				case WATER:
-					pixel = 0x0000FF;
-					break;
-				}
-				Map::setPixel(&surface, x, y, pixel);
-			}
-		}
-
-		if (that->getMiniMap() != NULL)
-		{
-			SDL_DestroyTexture(that->getMiniMap());
-		}
-		SDL_Texture* map = NULL;
-		map = tempRenderer->getTexture(&surface);
-		if (map == NULL)
-		{
-			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Fehler beim erstellen der MiniMap.");
-		}
-		that->setMiniMap(map);
-		SDL_Delay(1000 * updateInterval); // Beim beenden muss man die übrige Zeit noch warten :/ (TODO)
-	}
-
-	return 0;
-}
-
-void Map::startMiniMapUpdater(Renderer* renderer)
-{
+	// Kopie erstellen
 	SDL_Surface temp = *mapSurface;
 	tempMap = &temp;
-	tempRenderer = renderer;
-	SDL_Thread* thread = SDL_CreateThread(updateMiniMap, "Update", this);
+
+	// Benutzen von Terrain
+	Terrain tempTerrain = terrain;
+	int bpp = tempMap->format->BytesPerPixel;
+
+	// Pixel Updaten
+	Uint32 pixel = 0xFFFFFF;
+	switch (tempTerrain.getType())
+	{
+	case GRASS:
+		pixel = 0x00FF00;
+		break;
+	case SAND:
+		pixel = 0xFF8000;
+		break;
+	case WATER:
+		pixel = 0x0000FF;
+		break;
+	}
+	Map::setPixel(tempMap, x, y, pixel);
+
+	// Neue Textur erstellen
+	SDL_Texture* map = NULL;
+	map = Renderer::getInstance()->getTexture(tempMap);
+	if (map == NULL)
+	{
+		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Fehler beim erstellen der MiniMap.");
+	}
+
+	// Alte Textur freigeben
+	if (miniMap != NULL)
+	{
+		SDL_DestroyTexture(miniMap);
+	}
+	miniMap = map;
+
+	return 0;
 }
 
 void Map::move()
@@ -193,7 +177,7 @@ void Map::miniMapClick()
 {
 	float blockSizeMapX = (float)miniMapRect.w / width;
 	float blockSizeMapY = (float)miniMapRect.h / height;
-	// Mauspostion soll mittig im Rechteck liegen -> hälfte der rechtecks subtrahieren
+	// Mauspostion soll mittig im Rechteck liegen -> hälfte des rechtecks subtrahieren
 	float mousePositionX = InputWrapper::getMouseX() - miniMapRect.x - (float)miniMapViewRect.w / 2;
 	float mousePositionY = InputWrapper::getMouseY() - miniMapRect.y - (float)miniMapViewRect.h / 2;
 	int x = ceil(mousePositionX / blockSizeMapX) * BLOCK_SIZE;
@@ -370,5 +354,15 @@ Terrain * Map::getObject(int x, int y)
 bool Map::isInitialized()
 {
 	return initialized;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+//									Override											//
+//////////////////////////////////////////////////////////////////////////////////////////
+
+void Map::onNotify(const Terrain & entity)
+{
+	Terrain terrain = entity;
+	updateMiniMap(entity, terrain.getArea().x, terrain.getArea().y);
 }
 
