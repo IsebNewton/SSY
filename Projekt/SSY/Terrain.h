@@ -12,7 +12,7 @@ enum TerrainType
 	EARTH
 };
 
-class Terrain : public Subject
+class Terrain : public Subject<Terrain>
 {
 private:
 	TerrainType type;
