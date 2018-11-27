@@ -39,6 +39,9 @@ public:
 	static int musicVolume;					// Musicvolume
 	static int soundVolume;					// Soundvolume
 
+	// Grafik
+	static float menuHeight;				// In % von 0.1 - 1.0
+
 	/**
 	Speichert alle Daten in die config/config.txt
 	*/

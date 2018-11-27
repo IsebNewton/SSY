@@ -34,6 +34,8 @@ bool Config::soundOn;
 int Config::musicVolume;
 int Config::soundVolume;
 
+float Config::menuHeight = 0.2;		// 20% für das Menü
+
 void Config::setAttribut(Config::ConfigAttributes attribut, std::string value)
 {
 	try

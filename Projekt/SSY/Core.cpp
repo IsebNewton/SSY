@@ -3,6 +3,7 @@
 #include <iostream>
 #include "SoundFactory.h"
 #include "Color.h"
+#include "Config.h"
 
 bool Core::quit = false;
 
@@ -24,6 +25,7 @@ void Core::startGame()
 	FontFactory::initTTF();
 	GraphicFactory::initIMG();
 	SoundFactory::initAUDIO();
+	Config::readConfig();
 
 	if (!window->createWindow())
 	{
@@ -36,6 +38,8 @@ void Core::startGame()
 	int fps = 40;	// TODO: FPS aus der Konfig lesen
 	int delay = 1000 / fps;
 
+	SoundFactory::setMusicVolume(Config::musicVolume);
+	SoundFactory::setSoundVolume(Config::soundVolume);
 	SoundFactory::playMusic("Noddinagushpa.mp3", -1);
 
 	eventHandler = EventHandler();
