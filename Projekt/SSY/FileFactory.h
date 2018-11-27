@@ -23,7 +23,7 @@ public:
 	@param map Key-Value Paare welche in die Datei geschrieben werden soll.
 	*/
 	template <typename V, typename K>
-	static void write(std::string file, std::map<V, K> map);
+	static void write(std::string file, std::map<V, K> map, const char mode = std::ios::app);
 
 	/**
 	Liest die Datei Zeilenweise in ein String-Array.
@@ -44,7 +44,7 @@ public:
 };
 
 template<typename K, typename V>
-inline void FileFactory::write(std::string file, std::map<K, V> map)
+inline void FileFactory::write(std::string file, std::map<K, V> map, const char mode)
 {
 	for (auto it = map.begin(); it != map.end(); ++it)
 	{
@@ -57,6 +57,6 @@ inline void FileFactory::write(std::string file, std::map<K, V> map)
 		valueStream << it->second;
 		std::string value = valueStream.str();
 
-		writeLine(file, key + " = " + value + "\n");
+		writeLine(file, key + " = " + value + "\n", mode);
 	}
 }

@@ -43,7 +43,10 @@ std::list<std::string> FileFactory::readLines(std::string file)
 		{
 			std::string line;
 			std::getline(destinationFile, line);
-			linesList.push_back(line);
+			if (line.length() > 0 && line.at(0) != '#')
+			{
+				linesList.push_back(line);
+			}
 		}
 
 		destinationFile.close();

@@ -1,0 +1,9 @@
+### Config ###
+
+Fullscreen = 1
+Windowwidth = 1920
+Windowheight = 1080
+Music = 1
+Sound = 1
+Musicvolume = 100
+Soundvolume = 100
