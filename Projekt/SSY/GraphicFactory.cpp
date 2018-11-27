@@ -26,7 +26,7 @@ SDL_Surface * GraphicFactory::loadPicture(const char * path)
 	std::string key = std::string(path);
 	if (surfaces.find(std::string(key)) == surfaces.end())
 	{
-		std::string completePath = "bilder/" + std::string(path);
+		std::string completePath = "pictures/" + std::string(path);
 
 		picture = IMG_Load(completePath.c_str());
 		if (picture == NULL)
