@@ -80,10 +80,7 @@ public:
 	*/
 	virtual void onClick() override
 	{
-		if (visible)
-		{
-			SDL_Thread* thread = SDL_CreateThread(onAction, "Click", NULL);
-		}
+		onAction(NULL);
 	};
 
 	/**
