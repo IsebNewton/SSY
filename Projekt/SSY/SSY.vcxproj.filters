@@ -9,9 +9,14 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Ressourcendateien">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Factories">
+      <UniqueIdentifier>{cbc14646-988a-4a70-8706-bb074e1300b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Factories\Headerdateien">
+      <UniqueIdentifier>{c299aae6-ac9d-49a4-b168-680f9896dcc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Factories\Quelldateien">
+      <UniqueIdentifier>{e56349a7-15a9-4dae-ae3e-da641767d4e3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -27,9 +32,6 @@
     <ClCompile Include="GenericError.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="GraphicFactory.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -40,9 +42,6 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Font.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="FontFactory.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="ObjectControl.cpp">
@@ -66,9 +65,6 @@
     <ClCompile Include="Label.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="SoundFactory.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="Map.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -77,6 +73,18 @@
     </ClCompile>
     <ClCompile Include="Screen.cpp">
       <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundFactory.cpp">
+      <Filter>Factories\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicFactory.cpp">
+      <Filter>Factories\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="FontFactory.cpp">
+      <Filter>Factories\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="FileFactory.cpp">
+      <Filter>Factories\Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -89,9 +97,6 @@
     <ClInclude Include="GenericError.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="GraphicFactory.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -102,9 +107,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Font.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="FontFactory.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="ObjectControl.h">
@@ -131,9 +133,6 @@
     <ClInclude Include="Label.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="SoundFactory.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="Map.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -148,6 +147,18 @@
     </ClInclude>
     <ClInclude Include="Subject.h">
       <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="FileFactory.h">
+      <Filter>Factories\Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="FontFactory.h">
+      <Filter>Factories\Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicFactory.h">
+      <Filter>Factories\Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundFactory.h">
+      <Filter>Factories\Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
