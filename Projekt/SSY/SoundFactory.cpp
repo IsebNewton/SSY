@@ -33,7 +33,7 @@ void SoundFactory::playMusic(const char * file, int loops)
 	}
 	else
 	{
-		std::string path = "../Audio/Musik/" + std::string(file);
+		std::string path = "audio/music/" + std::string(file);
 		Mix_Music* track = Mix_LoadMUS(path.c_str());
 		if (track == NULL)
 		{
@@ -86,7 +86,7 @@ void SoundFactory::playSound(const char * file, int channel, int loops)
 	}
 	else
 	{
-		std::string path = "../Audio/Sound/" + std::string(file);
+		std::string path = "audio/sound/" + std::string(file);
 		Mix_Chunk* sound = Mix_LoadWAV(path.c_str());
 		if (sound == NULL)
 		{
