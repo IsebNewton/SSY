@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="Config.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="FileFactory.cpp" />
@@ -185,6 +186,7 @@
   <ItemGroup>
     <ClInclude Include="Button.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="Config.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="EventHandler.h" />
     <ClInclude Include="Events.h" />

@@ -66,7 +66,6 @@ public:
 	// Setter und Getter
 
 	void setViewPort(int x, int y);
-	void setMiniMapRect(SDL_Rect rect);
 
 	SDL_Rect getView();
 	SDL_Texture* getMiniMap();

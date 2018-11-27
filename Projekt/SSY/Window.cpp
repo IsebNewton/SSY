@@ -1,6 +1,7 @@
 #include "Window.h"
 #include "Core.h"
 #include "Color.h"
+#include "Config.h"
 
 Window::Window()
 {
@@ -14,8 +15,16 @@ bool Window::createWindow()
 {
 	bool ret = true;
 	// Öffnet das Fenster in der Mitte des Bildschirmes
-	window = SDL_CreateWindow("Age of Kacke", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-		0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP);
+	if (Config::fullscreen)
+	{
+		window = SDL_CreateWindow("Age of Kacke", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+			Config::windowWidth, Config::windowHeight, SDL_WINDOW_FULLSCREEN_DESKTOP);
+	}
+	else
+	{
+		window = SDL_CreateWindow("Age of Kacke", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+			Config::windowWidth, Config::windowHeight, SDL_WINDOW_SHOWN);
+	}
 	
 	if (window == nullptr)
 	{
@@ -23,7 +32,10 @@ bool Window::createWindow()
 	}
 	else
 	{
-		SDL_SetWindowGrab(window, SDL_TRUE);
+		if (Config::fullscreen)
+		{
+			SDL_SetWindowGrab(window, SDL_TRUE);
+		}
 		Renderer::setWindow(window);
 		renderer = Renderer::getInstance();
 

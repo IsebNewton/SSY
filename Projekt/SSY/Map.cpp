@@ -1,6 +1,7 @@
 #include <math.h>
 #include "Map.h"
 #include "GraphicFactory.h"
+#include "Config.h"
 
 Map::Map(const char * file)
 {
@@ -21,9 +22,17 @@ Map::Map(const char * file)
 		}
 	}
 	// set View
+	int menuHeight = ((float)Config::windowHeight * Config::menuHeight);
+
 	setViewPort(0, 0);
-	viewArea.w = 1920;	// TODO: Dynamisch auslesen
-	viewArea.h = 880;
+	viewArea.w = Config::windowWidth;
+	viewArea.h = Config::windowHeight - menuHeight;
+
+	// Set miniMap
+	miniMapRect.x = 0;
+	miniMapRect.y = viewArea.h;
+	miniMapRect.h = menuHeight;
+	miniMapRect.w = menuHeight;
 
 	maxViewPortX = width * BLOCK_SIZE - viewArea.w;
 	maxViewPortY = height * BLOCK_SIZE - viewArea.h;
@@ -155,11 +164,11 @@ int Map::updateMiniMap(const Terrain& terrain, int x, int y)
 void Map::move()
 {
 	int move = BLOCK_SIZE;
-	if (InputWrapper::getMouseY() >= 1079)
+	if (InputWrapper::getMouseY() >= Config::windowHeight - 1)
 	{
 		setViewPort(viewArea.x, viewArea.y + move);
 	}
-	if (InputWrapper::getMouseX() >= 1919)
+	if (InputWrapper::getMouseX() >= Config::windowWidth - 1)
 	{
 		setViewPort(viewArea.x + move, viewArea.y);
 	}
@@ -258,11 +267,6 @@ void Map::setViewPort(int x, int y)
 	{
 		viewArea.y = maxViewPortY;
 	}
-}
-
-void Map::setMiniMapRect(SDL_Rect rect)
-{
-	this->miniMapRect = rect;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
